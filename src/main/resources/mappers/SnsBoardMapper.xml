@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.TomLand.snsboard.mapper.ISnsBoardMapper">
+
+	<!-- 동적 SQL 쿼리 -->
+	
+	<!-- ResultMap : mybits-config.xml 에 셋팅함 / typeAlias type="com.spring.TomLand.command.SnsBoardVO"
+			alias="sns"  / -->
+	<!--  resultType VO객체로 받아서 컨트롤러로 가고, resultMap은 Map형태로 받아서 컨트롤러로 가니까 생각해라 -->
+
+	<!-- 글 등록 -->
+	<insert id="insert">
+		insert into snsboard
+		(bno, writer, content, upload_path, file_loca, file_name, file_realName, profile_uploadPath, profile_fileLoca, profile_fileName, profile_fileRealName)
+		values(snsboard_seq.nextval, #{writer}, #{content}, #{uploadPath}, #{fileLoca}, #{fileName}, #{fileRealName}, #{profileUploadPath}, #{profileFileLoca}, #{profileFileName}, #{profileFileRealName})
+	</insert>
+	
+	<!-- 글 목록 가져오기 -->
+	<select id="getList" resultType="sns">
+	<![CDATA[
+		select * from(
+			select rownum as rn, tbl.* from(
+				select b.* ,(
+					select count(*) from snslike s where s.bno = b.bno)
+				as likeCnt from snsboard b order by bno desc)
+			tbl)
+		where rn > (#{pageNum} -1) * #{cpp}
+		and rn <= #{pageNum} * #{cpp}
+	]]>
+	</select>
+
+	<!-- 글 상세 목록 가져오기 -->
+	<select id="getDetail" resultType="sns">
+		select * from snsboard
+		where bno = #{bno}
+	</select>
+	
+	<!-- 글 삭제 -->
+	<delete id="delete">
+		delete from snsboard
+		where bno = #{bno}
+	</delete>
+
+	<!-- 좋아요 검색 -->
+	<select id="searchLike" resultType="int">
+		select count(*) from snslike
+		where bno = #{bno} and userId = #{userId}
+	</select>
+	
+	<!-- 좋아요 등록 -->
+	<insert id="createLike">
+		insert into snslike
+		values(snslike_seq.nextval, #{bno}, #{userId})
+	</insert>
+	
+	<!-- 좋아요 삭제 -->
+	<delete id="deleteLike">
+		delete from snslike
+		where bno = #{bno} and userId = #{userId}
+	</delete>
+	
+	<!-- 리스트 진입 시 좋아요 -->
+	<select id="listLike" resultType="int">
+		select bno from snslike
+		where userId = #{userId}
+	</select>
+	
+</mapper>

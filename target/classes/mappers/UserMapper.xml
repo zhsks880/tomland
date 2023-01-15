@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.TomLand.user.mapper.IUserMapper">
+
+	<!-- 동적 SQL 쿼리 -->
+	
+	<!-- ResultMap : mybatis-config.xml 에 셋팅 해놔서 _ -> 카멜로 변환 됨 -->
+	<resultMap type="user" id="userMap">
+	</resultMap>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="idCheck" resultType="int">
+		select count(*) from users
+		where user_id = #{userId}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="join">
+		insert into users
+		(user_no, user_id, user_name, user_pw, user_email1, user_email2, user_phone1, user_phone2, user_phone3, user_addr_zipnum, user_addr_basic, user_addr_detail, user_uploadPath, user_fileLoca, user_fileName, user_fileRealName)
+		values
+		(users_seq.nextval, #{userId}, #{userName}, #{userPw}, #{userEmail1}, #{userEmail2}, #{userPhone1}, #{userPhone2}, #{userPhone3}, #{userAddrZipnum}, #{userAddrBasic}, #{userAddrDetail}, #{userUploadPath}, #{userFileLoca}, #{userFileName}, #{userFileRealName})
+	</insert>
+
+	<!-- 회원 로그인 -->
+	<select id="login" resultType="user">
+		select * from users where user_id = #{userId}
+	</select>
+
+	<!-- 회원 정보 수정 -->
+	<update id="userUpdate">
+		update users set
+		user_pw = #{userPw}, user_phone1 = #{userPhone1}, user_phone2 = #{userPhone2}, user_phone3 = #{userPhone3}, user_email1 = #{userEmail1}, user_email2 = #{userEmail2}, user_addr_zipnum = #{userAddrZipnum}, user_addr_basic = #{userAddrBasic}, user_addr_detail = #{userAddrDetail}, user_uploadpath = #{userUploadPath}, user_fileloca = #{userFileLoca}, user_filename = #{userFileName}, user_filerealname = #{userFileRealName}
+		where user_id = #{userId}
+	
+	</update>
+
+	<!-- 총 게시글 갯수 구하기-->
+	<select id="writeCount" resultType="int">
+		select count(*) from freeboard
+		where writer = #{userId}
+	</select>
+	
+	<!-- 총 댓글 갯수 구하기 -->
+	<select id="replyCount" resultType="int">
+		select count(*) from freereply
+		where reply_id = #{userId}
+	</select>
+
+	<!-- 총 이미지 갯수 구하기 -->
+	<select id="imgCount" resultType="int">
+		select count(*) from snsboard
+		where writer = #{userId}
+	</select>
+
+	<!-- 총 판매상품 갯수 구하기 -->
+	<select id="gamjaCount" resultType="int">
+		select count(*) from gamja
+		where user_id = #{userId}
+	</select>
+	
+	<!-- 마이페이지 -->
+	<select id="getInfo" resultMap="userMap">
+		select * from users u
+		left join freeboard f
+		on u.user_id = f.writer
+		where u.user_id = #{id}
+		order by f.bno desc
+	</select>
+
+
+
+
+
+
+</mapper>
