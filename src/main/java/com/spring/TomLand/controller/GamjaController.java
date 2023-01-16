@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.TomLand.command.GamjaAllVO;
 import com.spring.TomLand.command.GamjaImgVO;
 import com.spring.TomLand.command.GamjaVO;
 import com.spring.TomLand.command.PageVO;
@@ -49,7 +46,6 @@ public class GamjaController {
 	public void gamjaList(PageVO vo, Model model) {
 		
 		model.addAttribute("gamjaList", service.getList(vo));
-		log.info("써비스에서 날아온것은??" + service.getList(vo));
 		model.addAttribute("pc", service.getPc(vo));
 	}
 	
@@ -67,9 +63,7 @@ public class GamjaController {
 	//감자글 등록
 	@PostMapping("/gamjaRegist")
 	public String gamjaRegist(@RequestParam("file") List<MultipartFile> imgList, GamjaVO vo, RedirectAttributes ra) {
-		log.info("감자VO" + vo);
-		log.info("감자이미지리스트" + imgList);
-		
+
 		//블로그 내용
 		ArrayList<GamjaImgVO> gamjaimg = new ArrayList<GamjaImgVO>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -110,7 +104,6 @@ public class GamjaController {
 	public String getContent(@PathVariable int gno, Model model) {
 		
 		model.addAttribute("article", service.getContent(gno));
-		log.info("article 값?" + service.getContent(gno));
 		return "gamja/gamjaContent";
 	}
 	
@@ -136,7 +129,6 @@ public class GamjaController {
 	@PostMapping("/delete")
 	@ResponseBody
 	public String delete(@RequestBody int gno) {
-		log.info("삭제를 위한 gno!!" + gno);
 		service.delete(gno);
 		
 		
@@ -146,7 +138,6 @@ public class GamjaController {
 	//감자 글 수정 가기
 	@GetMapping("/gamjaModify/{gno}")
 	public String gamjaModify(@PathVariable int gno, Model model) {
-		log.info("서비스로가즈아" + service.getContent(gno));
 		model.addAttribute("modList", service.getContent(gno));
 		return "gamja/gamjaModify";
 	}
@@ -155,8 +146,6 @@ public class GamjaController {
 	@PostMapping("/update")
 	public String update(@RequestParam("file") List<MultipartFile> imgList, GamjaVO vo, RedirectAttributes ra) {
 		
-		log.info("수정VO!!!" + vo);
-		log.info("수정img " + imgList);
 		//블로그 내용
 		ArrayList<GamjaImgVO> gamjaimg = new ArrayList<GamjaImgVO>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");

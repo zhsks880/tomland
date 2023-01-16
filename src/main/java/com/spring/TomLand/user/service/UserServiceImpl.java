@@ -6,13 +6,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.ibatis.javassist.bytecode.LineNumberAttribute.Pc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.TomLand.command.FreeBoardVO;
+import com.spring.TomLand.command.PageVO;
 import com.spring.TomLand.command.UserVO;
 import com.spring.TomLand.user.mapper.IUserMapper;
+import com.spring.TomLand.util.PageCreator;
 
 import lombok.extern.log4j.Log4j;
 
@@ -22,6 +26,9 @@ public class UserServiceImpl implements IUserService {
 	
 	@Autowired
 	private IUserMapper mapper;
+	
+	@Autowired
+	private PageCreator pc;
 	
 	
 	@Override
@@ -54,11 +61,7 @@ public class UserServiceImpl implements IUserService {
 		String uuids = uuid.toString().replaceAll("-", "");
 		
 		//파일 확장자 추출
-		String fileExtension = userFileRealName.substring(userFileRealName.lastIndexOf("."), userFileRealName.length());
-		log.info("저장경로: " + userUploadPath);
-		log.info("저장폴더: " + folder);
-		log.info("파일확장자: " + fileExtension);
-		
+		String fileExtension = userFileRealName.substring(userFileRealName.lastIndexOf("."), userFileRealName.length());	
 		String userFileName = uuids + fileExtension;
 		File saveFile = new File(userUploadPath + "/" + userFileName);
 		
@@ -110,10 +113,6 @@ public class UserServiceImpl implements IUserService {
 		
 		//파일 확장자 추출
 		String fileExtension = userFileRealName.substring(userFileRealName.lastIndexOf("."), userFileRealName.length());
-		log.info("저장경로: " + userUploadPath);
-		log.info("저장폴더: " + folder);
-		log.info("파일확장자: " + fileExtension);
-		
 		String userFileName = uuids + fileExtension;
 		File saveFile = new File(userUploadPath + "/" + userFileName);
 		
@@ -147,4 +146,12 @@ public class UserServiceImpl implements IUserService {
 	public int imgCount(String userId) {
 		return mapper.imgCount(userId);
 	}
+	
+	//getTotal
+	public PageCreator getPc(PageVO vo) {
+		pc.setPaging(vo);
+		pc.setArticleTotalCount(mapper.writeCount(vo.getUserId()));
+		return pc;
+	}
+	
 }

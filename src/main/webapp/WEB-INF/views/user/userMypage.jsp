@@ -207,19 +207,7 @@
 
 					<!-- id2 시작 -->
 					<div class="tab-pane fade" id="id2">
-						<!-- 검색 창 -->
-						<form action="#">
-							<div class="search-wrap">
-								<select class="search-select">
-									<option value="">제목</option>
-									<option value="">내용</option>
-									<option value="">작성자</option>
-									<option value="">제목+내용</option>
-								</select> <input type="text" ckass="form-control search-input"
-									placeholder="검색어">
-								<button typ="button" class="btn btn-primary search-btn">검색</button>
-							</div>
-						</form>
+
 
 						<!--게시글 테이블-->
 						<table class="table table-hover">
@@ -232,12 +220,12 @@
 								</tr>
 							</thead>
 							
-							<tbody>
+							<tbody class="contents">
 							
-							<c:if test="${fn:length(userInfo[1].userBoardList) >0}">
-							<c:forEach var="vo" items="${userInfo.userBoardList}">
+						<c:if test="${fn:length(userInfo[0].userBoardList) > 0}">
+							<c:forEach var="vo" items="${userInfo[0].userBoardList}">
 								<tr>
-									<td class="m_bno">${vo.bno}</td>
+								<td class="m_bno">${vo.bno}</td>
 									<td class="m_Title"><a href="<c:url value='/board/boardContent/${vo.bno}${pc.makeURI(pc.paging.pageNum)}' />">${vo.title}</a></td>
 									<td class="m_Regdate">
 										<fmt:formatDate value="${vo.regDate}" pattern="yy년 MM월 dd일"/>
@@ -245,9 +233,9 @@
 									<td class="m_like">${vo.viewCount}</td>
 								</tr>
 							</c:forEach>	
-							</c:if>
+						</c:if>
 							
-							<c:if test="${fn:length(userInfo[1].userBoardList) <= 0}">
+							<c:if test="${fn:length(userInfo[0].userBoardList) <= 0}">
 								<tr>
 									<td class="m_bno"></td>
 									<td class="m_Title"><a href="">작성한 글이 없습니다.</a></td>
@@ -266,18 +254,18 @@
 								<nav>
 									<ul class="pagination bUl" id="pagination">
 									
-										<c:if test="${pc.prev}">
-											<li><a href="#" class="bPagination" data-pagenum="${pc.beginPage-1}">&laquo; 이전</a></li>
-										</c:if>
-										
-										<c:forEach var="num" begin="${pc.beginPage}" end="${pc.endPage}">
-											<li class="${pc.paging.pageNum == num ? 'active' : ''}"><a href="#" class="bPagination" data-pagenum="${num}">${num}</a></li>
-										</c:forEach>
-										
-										<c:if test="${pc.next}">
-											<li><a href="#" class="bPagination" data-pagenum="${pc.endPage+1}">다음 &raquo;</a></li>
-										</c:if>
-		
+								<c:if test="${pc.prev}">
+									<li><a href="#" class="bPagination" data-pagenum="${pc.beginPage-1}">&laquo; 이전</a></li>
+								</c:if>
+								
+								<c:forEach var="num" begin="${pc.beginPage}" end="${pc.endPage}">
+									<li class="${pc.paging.pageNum == num ? 'active' : ''}"><a href="#" class="bPagination" data-pagenum="${num}">${num}</a></li>
+								</c:forEach>
+								
+								<c:if test="${pc.next}">
+									<li><a href="#" class="bPagination" data-pagenum="${pc.endPage+1}">다음 &raquo;</a></li>
+								</c:if>
+
 									</ul>
 								</nav>
 							</div>
@@ -615,6 +603,10 @@
 				}); // end mail-check-input
 
 	});// end jQuery
+	
+// 내글목록 페이징
+let userList = '${userInfo[0].userBoardList}';
+console.log('페이징 총 갯수?' + userList.length);
 </script>
 
 

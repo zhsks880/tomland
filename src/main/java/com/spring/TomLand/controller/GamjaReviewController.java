@@ -37,7 +37,6 @@ public class GamjaReviewController {
 	public String insert(MultipartFile file, String content, HttpSession session) {
 		
 		String writer = ((UserVO) session.getAttribute("login")).getUserId();
-		log.info("리뷰 등록자: " + writer);
 		String profileFileLoca = ((UserVO) session.getAttribute("login")).getUserFileLoca();
 		String profileUploadPath = ((UserVO) session.getAttribute("login")).getUserUploadPath();
 		String profileFileName = ((UserVO) session.getAttribute("login")).getUserFileName();
@@ -51,7 +50,6 @@ public class GamjaReviewController {
 		reviewVo.setProfileFileRealName(profileFileRealName);
 		reviewVo.setProfileFileName(profileFileName);;
 		
-		log.info("서비스로 갈 VO " + reviewVo);
 		service.insert(reviewVo, file);
 
 		return "regSuccess";

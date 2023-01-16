@@ -29,7 +29,7 @@ public class FreeBoardController {
 	//자유게시판 이동
 	@GetMapping("/boardList")
 	public void boardList(PageVO vo, Model model) {
-		log.info("pageVO " + vo);
+		log.info("자유게시판pageVO " + vo);
 		
 		model.addAttribute("boardList", service.getList(vo));
 		model.addAttribute("pc", service.getPc(vo));

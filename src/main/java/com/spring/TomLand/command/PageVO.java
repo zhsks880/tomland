@@ -23,5 +23,7 @@ public class PageVO {
 		cpp = 5;
 	}
 	
+	//사용자 만 갯수 세기 위해 추가
+	private String userId;
 	
 }

@@ -9,6 +9,31 @@
 	
 	<!-- ResultMap : mybatis-config.xml 에 셋팅 해놔서 _ -> 카멜로 변환 됨 -->
 	<resultMap type="user" id="userMap">
+		<id property="userNo" column="user_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="userName" column="user_name"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userEmail1" column="user_email1"/>
+		<result property="userEmail2" column="user_email2"/>
+		<result property="userPhone1" column="user_phone1"/>
+		<result property="userPhone2" column="user_phone2"/>
+		<result property="userPhone3" column="user_phone3"/>
+		<result property="userAddrZipnum" column="user_addr_zipnum"/>
+		<result property="userAddrBasic" column="user_addr_basic"/>
+		<result property="userAddrDetail" column="user_addr_detail"/>
+		<result property="userUploadPath" column="user_uploadpath"/>
+		<result property="userFileLoca" column="user_fileloca"/>
+		<result property="userFileName" column="user_filename"/>
+		<result property="userFileRealName" column="user_filerealname"/>
+		<result property="userRegDate" column="user_reg_date"/>
+		<collection property="userBoardList" resultMap="list" />
+	</resultMap>
+	
+	<resultMap type="board" id="list">
+		<id property="bno" column="bno"/>
+		<result property="title" column="title"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="viewCount" column="view_count"/>
 	</resultMap>
 	
 	<!-- 아이디 중복 체크 -->
@@ -64,13 +89,40 @@
 	
 	<!-- 마이페이지 -->
 	<select id="getInfo" resultMap="userMap">
-		select * from users u
+		select
+			 user_no,
+			 user_id,
+			 user_name,
+			 user_pw,
+			 user_email1,
+			 user_email2,
+			 user_phone1,
+			 user_phone2,
+			 user_phone3,
+			 user_addr_zipnum,
+			 user_addr_basic,
+			 user_addr_detail,
+			 user_uploadPath,
+			 user_fileLoca,
+			 user_fileName,
+			 user_fileRealName,
+			 user_reg_date,
+			 f.bno,
+			 f.title,
+			 f.reg_date,
+			 f.view_count
+		from users u
 		left join freeboard f
 		on u.user_id = f.writer
 		where u.user_id = #{id}
 		order by f.bno desc
 	</select>
-
+	
+	<!-- 마이 글 -->
+	<select id="getMyarticle" resultType="board">
+		select * from freeboard
+		where writer = #{userId}
+	</select>
 
 
 

@@ -32,4 +32,5 @@ public interface IUserMapper {
 	
 	//나의 총판매상품 카운트
 	int gamjaCount(String userId);
+	
 }

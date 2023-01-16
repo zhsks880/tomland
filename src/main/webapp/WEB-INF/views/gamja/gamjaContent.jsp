@@ -116,7 +116,7 @@
 								<tbody>
 									<tr>
 										<th>상품번호</th>
-										<td name="gno">${article[0].gno}</td>
+										<td name="gno" class="gno">${article[0].gno}</td>
 										<th>상품상태</th>
 										<td name="pCondition">${article[0].PCondition}</td>
 									</tr>
@@ -251,8 +251,8 @@
 						<div class="pocket" style="text-align: right; margin-left: 10px;">
 							<span>상품금액: 30,000원 |</span> <span>총 금액: <strong>50,000원</strong></span>
 						</div>
-						<button typ="button" class="btn btn-danger search-btn">삭제</button>
-						<button typ="button" class="btn btn-primary search-btn">주문</button>
+						<button type="button" class="btn btn-danger search-btn">삭제</button>
+						<button type="button" class="btn btn-primary search-btn">주문</button>
 					</div>
 					<!-- end id3 -->
 
@@ -322,11 +322,12 @@ function timeStamp(millis) {
 let str = '';
 let page1 = 1;
 let isFinish = false;
-
+let gno = '${article[0].gno}';
 // # getList 함수
 function getList(page, reset) {
 	console.log('page: ' + page1);
 	console.log('reset: ' + reset);
+	console.log('gno: ' + gno);
 	
 	if(reset === true){
 		str = '';

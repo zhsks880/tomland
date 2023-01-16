@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.TomLand.command.PageVO;
 import com.spring.TomLand.command.UserVO;
 import com.spring.TomLand.user.service.IUserService;
 import com.spring.TomLand.util.MailSendService;
@@ -51,7 +52,7 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/idCheck")
 	public String idCheck(@RequestBody String userId) {
-		log.info("체크하는 userid : " + userId);
+
 		int result = service.idCheck(userId);
 		if(result == 1) {
 			return "duplicated";
@@ -72,8 +73,7 @@ public class UserController {
 	//회원 가입
 	@PostMapping("/join")
 	public String join(@RequestParam("file") MultipartFile file, UserVO vo, RedirectAttributes ra) {
-		log.info("vo객체: " + vo);
-		log.info("file객체: " + file);
+
 		ra.addFlashAttribute("msg", "join");
 		
 		service.join(vo, file);
@@ -85,7 +85,7 @@ public class UserController {
 	@ResponseBody
 	@PostMapping("/login")
 	public String login(@RequestBody UserVO vo, HttpSession session, HttpServletResponse response) {
-		log.info("비동기로 오는 VO  : " + vo);
+
 		UserVO dbData = service.login(vo.getUserId());
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
@@ -114,8 +114,11 @@ public class UserController {
 		
 		String id = ((UserVO) session.getAttribute("login")).getUserId();
 		List<UserVO> vo = service.getInfo(id);
-		log.info("유저VO엔 머가 오나요?" + vo); 
+		PageVO pageVo = new PageVO();
+		pageVo.setUserId(id);
+
 		model.addAttribute("userInfo", vo);
+		model.addAttribute("pc", service.getPc(pageVo));
 	}
 	
 	//MyPage Profile 보기 요청
@@ -124,11 +127,8 @@ public class UserController {
 	public ResponseEntity<byte[]> getFile(HttpSession session){
 		
 		UserVO user = (UserVO) session.getAttribute("login");
-		
-		log.info("fileName : " + user.getUserFileName());
-		
+				
 		File file = new File("c:/test/tomland/" + user.getUserFileLoca() + "/" + user.getUserFileName());
-		log.info("file 이름: " + file);
 		
 		ResponseEntity<byte[]> result = null;
 		HttpHeaders headers = new HttpHeaders();
@@ -147,8 +147,6 @@ public class UserController {
 	//Update
 	@PostMapping("/update")
 	public String userUpdate(@RequestParam("file") MultipartFile file, UserVO vo, RedirectAttributes ra) {
-		log.info("업데이트VO" + vo);
-		log.info("업데이트 사진" + file);
 		
 		service.userUpdate(vo, file);
 		

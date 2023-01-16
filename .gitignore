@@ -2,19 +2,33 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
 ### Eclipse ###
+
 local.properties
 *.properties
-.settings/
-.loadpath
-.recommenders
 
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+
+# CDT- autotools
+.autotools
+
+# Java annotation processor (APT)
+.factorypath
+
+# PDT-specific (PHP Development Tools)
+.buildpath
+
+# sbteclipse plugin
+.target
+
+# Tern plugin
+.tern-project
 
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
 #.project
 
-### Eclipse Patch ###
-# Spring Boot Tooling
-.sts4-cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
