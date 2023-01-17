@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.TomLand.cart.mapper.ICartMapper">
+
+	<!-- 동적 SQL쿼리 -->
+	
+	<!-- ResultMap : mybits-config.xml 에 셋팅함 / typeAlias type="com.spring.TomLand.command.CartVO"
+		alias="cart"   -->
+
+
+	<!-- 카트 추가 -->
+	<insert id="addCart">
+		insert into cart(cart_no, user_no, gno, book_count)
+		values(cart_seq.nextval, #{userNo}, #{gno}, #{bookCount})
+	</insert>
+	
+	<!-- 카트 삭제 -->
+	<delete id="deleteCart">
+		delete from cart where cart_no = #{cartNo}
+	</delete>
+	
+	<!-- 카트 수량 수정 -->
+	<update id="modifyCount">
+		update cart set book_count = #{bookCount} where cart_no = #{cartNo}
+	</update>
+	
+	<!-- 카트 목록 -->
+	<select id="getCart" resultType="cart">
+		select a.cart_no, a.user_no, a.gno, a.book_count, b.user_id, b.p_name, b.p_price
+		from cart a
+		left join gamja b
+		on a.gno = b.gno
+		where a.user_no = #{userNo}		
+	</select>
+	
+	<!-- 카트 확인 -->
+	<select id="checkCart" resultType="cart">
+		select * from cart
+		where user_no = #{userNo}
+		and gno = #{gno}
+	</select>
+
+
+</mapper>

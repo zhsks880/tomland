@@ -206,8 +206,11 @@
 	$(function() {
 		
 		$('#regiBtn').click(function() {
-			confirm('수정하시겠습니까??');
-			$('#gamjaForm').submit();
+			if(confirm('수정하러 가시겠습니까?') == true){
+				$('#gamjaForm').submit();
+			} else {
+				return false;
+			}	
 		});
 		
 		

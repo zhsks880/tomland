@@ -35,6 +35,8 @@
 		alias="gamjaall" />
 		<typeAlias type="com.spring.TomLand.command.GamjaReviewVO"
 		alias="gamjareview" />
+		<typeAlias type="com.spring.TomLand.command.CartVO"
+		alias="cart" />
 	</typeAliases>
 
 

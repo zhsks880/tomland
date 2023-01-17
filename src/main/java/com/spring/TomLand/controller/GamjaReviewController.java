@@ -59,7 +59,7 @@ public class GamjaReviewController {
 	@GetMapping("/getList")
 	public List<GamjaReviewVO> getList(PageVO paging){
 		paging.setCpp(3);
-
+		
 		return service.getList(paging);
 	}
 	
@@ -98,5 +98,6 @@ public class GamjaReviewController {
 		}
 		return result;
 	}
+	
 	
 }

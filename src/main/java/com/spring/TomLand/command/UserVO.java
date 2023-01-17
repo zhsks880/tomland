@@ -61,4 +61,7 @@ public class UserVO {
 	//userBoardList 추가
 	private List<FreeBoardVO> userBoardList;
 	
+	//cartList 추가
+	private List<CartVO> cartList;
+	
 }

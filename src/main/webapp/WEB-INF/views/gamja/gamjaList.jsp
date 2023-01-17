@@ -18,7 +18,7 @@
 						<a href="<c:url value="/gamja/gamjaList" />">
 						<img src="../resources/img/potato.png"
 							style="width: 180px; height: 50px;"></a> 
-							<input type="text" class="form-control search" name="keyword" id="keywordInput" placeholder="상품명, 등록인 검색 후 엔터" style="width: 50%;">
+							<input type="text" class="form-control search" name="keyword" id="keywordInput" placeholder="상품명, 브랜드, 판매자 검색 후 엔터" style="width: 50%;">
 						<button type="button" class="btn btn-primary search-btn"
 							style="background-color: #edad53; border: 0px;" onclick="location.href='<c:url value="/gamja/gamjaRegist" />' ">내물건등록</button>
 					</div>
@@ -29,16 +29,20 @@
 					data-bs-ride="carousel" style="margin-bottom: 50px;">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="../resources/img/f1.png" class="d-block w-100"
+							<img src="../resources/img/f11.png" class="d-block w-100"
 								alt="1fuck">
 						</div>
 						<div class="carousel-item">
-							<img src="../resources/img/f2.png" class="d-block w-100"
+							<img src="../resources/img/f22.png" class="d-block w-100"
 								alt="2fuck">
 						</div>
 						<div class="carousel-item">
-							<img src="../resources/img/f3.png" class="d-block w-100"
+							<img src="../resources/img/f33.png" class="d-block w-100"
 								alt="3fuck">
+						</div>
+						<div class="carousel-item">
+							<img src="../resources/img/gucci.png" class="d-block w-100"
+								alt="4fuck">
 						</div>
 					</div>
 					<button class="carousel-control-prev" type="button"
@@ -58,15 +62,16 @@
 					<!-- 게시글 반복문 테스트 gamjaList 배열로 들어옴 -->
 					<c:forEach items="${gamjaList}" var="vo">
 					<div class="col-lg-2 d-lg-flex flex-lg-column order-1 order-lg-2 regi">
-						<div class="gamjaList">
+						<div class="gamjaList" style="background: #edad53;">
 							<a href="<c:url value='/gamja/gamjaContent/${vo.gno}${pc.makeURI(pc.paging.pageNum)}' />">
 								<input type="hidden" name="gno" value="${vo.gno}">
 								
-								<p style="margin: 0px; font-weight: bold; font-size: 20px;">${vo.PName}</p>
+								<p style="margin: 0px; font-weight: bold; font-size: 25px;">${vo.PName}</p>
+								<hr style="margin: 0px; color: black; font-weight: bold;">
 								<p style="margin: 0px;">판매자 : ${vo.userId} 님</p>
 								<div class="user2">
-									<p style="margin: 0px;">${vo.PPrice}</p>
-									<p style="margin: 0px; font-size: 12px; color: gray;"><fmt:formatDate value="${vo.regDate}" pattern="MM월dd일" /></p>
+									<p style="margin: 0px;">${vo.PPrice}원</p>
+									<p style="margin: 0px; font-size: 12px; color: red;"><fmt:formatDate value="${vo.regDate}" pattern="MM월dd일" /></p>
 								</div></a>
 						</div>
 					</div>

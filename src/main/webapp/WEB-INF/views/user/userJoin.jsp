@@ -136,7 +136,7 @@
 							.jpg, .jpeg만 등록 가능
 						</div>
 						<div class="fileDiv">
-							<img id="fileImg" style="width: 150px; height: 150px;" src="${pageContext.request.contextPath}/resources/img/free-marker.png">
+							<img id="fileImg" style="width: 150px; height: 150px;" src="">
 						</div>
 					</div>
 
@@ -276,6 +276,16 @@
 
 		//# 회원가입 버튼
 		$('#joinBtn').click(function () {
+			if($('#userId').val().trim() === ''){
+				alert('아이디 입력은 필수 입니다.');
+				$('#userId').focus();
+				return;
+			}
+			if($('#userId').attr('readonly') !== 'readonly'){
+				alert('아이디 중복확인은 필수 입니다.');
+				$('#userId').focus();
+				return;
+			}
 			if ($('#userPw').val().trim() === '') {
 				alert('비밀번호 입력은 필수 입니다.');
 				$('#userPw').focus();
@@ -296,8 +306,20 @@
 				$('#userEmail1').focus();
 				return;
 			}
-			confirm('회원 가입 하시겠습니까?');
-			$('#joinForm').submit();
+			if ($('#userEmail1').attr('readonly') !== 'readonly'){
+				alert('이메일 인증은 필수입니다.');
+				$('#userEmail1').focus();
+				return;
+			}
+			if ($('#fileImg').attr('src') === ''){
+				alert('프로필 사진 등록은 필수 입니다.');
+				return;
+			}
+			if(confirm('회원 가입 하시겠습니까?') == true){
+				$('#joinForm').submit();
+			} else {
+				return false;
+			}			
 		}); // end 회원가입 버튼
 
 		//# 아이디 중복 체크

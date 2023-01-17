@@ -249,7 +249,7 @@
 						</table>
 
 						<!-- 페이지 네이션 -->
-						<form action="#" name="pageForm" class="pageForm">
+<%-- 						<form action="#" name="pageForm" class="pageForm">
 							<div class="text-center">
 								<nav>
 									<ul class="pagination bUl" id="pagination">
@@ -276,7 +276,7 @@
 		                    <input type="hidden" name="condition" value="${pc.paging.condition}">
 		                    <input type="hidden" name="keyword" value="${pc.paging.keyword}">
 							
-						</form>
+						</form> --%>
 						
 					</div>
 					<!-- end id2 -->
@@ -284,31 +284,69 @@
 					<!-- id3 시작 -->
 					<div class="tab-pane fade" id="id3">
 						<table class="table table-hover">
+						
 							<thead class="bg-thead">
 								<tr>
-									<th class="p_bno"></th>
-									<th class="p_Title">장바구니품목</th>
-									<th class="p_Regdate">상품정보</th>
-									<th class="p_Price">가격</th>
-									<th class="p_like">수량</th>
+									<th><!-- <input type="checkbox" class="prodAllCheck" checked> --></th>
+									<th class="prodGno">상품번호</th>
+									<th class="prodName">상품정보</th>
+									<th class="prodPrice">가격</th>
+									<th class="prodUserid">판매자</th>
 								</tr>
 							</thead>
+							
 							<tbody>
+							
+								<c:if test="${fn:length(cart) > 0}">
+									<c:forEach var="cart" items="${cart}">
+				
 								<tr>
-									<td class="p_bno"><input type="checkbox"></td>
-									<td class="p_Title"><a href=""><img src="#"
-											style="width: 150px; height: 150px;"></a></td>
-									<td class="p_Regdate">아이폰케이스 나노슬림</td>
-									<td class="p_Price">40,000원</td>
-									<td class="p_like">1개</td>
+									<td class="prodCheck">
+									<input type="checkbox" class="individual_checkbox" name="checkBox">
+									<input type="hidden" class="individual_bookCount" value="${cart.bookCount}">
+									<input type="hidden" class="individual_cartNo" value="${cart.cartNo}">
+									<input type="hidden" class="individual_pPrice" value="${cart.PPrice}">
+									</td>
+									
+									<td class="prodGno">${cart.gno}</td>
+									
+									<td class="prodName"><a href="<c:url value='/gamja/gamjaContent/${cart.gno}' />" >${cart.PName}</a></td>
+									
+									<td class="prodPrice">${cart.PPrice}원</td>
+									
+									<td class="prodUserid">${cart.userId}님</td>
 								</tr>
+								
+									</c:forEach>
+								</c:if>
+								
+								<c:if test="${fn:length(cart) <= 0}">
+									<tr>
+									<td class="prodCheck"><input type="checkbox" name="checkbox"></td>
+									
+									<td class="prodGno"></td>
+									
+									<td class="prodName">장바구니에 담긴 상품이 없습니다.</a></td>
+									
+									<td class="prodPrice"></td>
+									
+									<td class="prodUserid"></td>
+								</tr>
+								
+								</c:if>
+								
 							</tbody>
 						</table>
+						
 						<div class="pocket" style="text-align: right; margin-left: 10px;">
-							<span>상품금액: 30,000원 |</span> <span>총 금액: <strong>50,000원</strong></span>
+							<span>상품금액:</span>
+							<span class="totalprice"></span><span>원 | </span> 
+							<span>총 금액: </span>
+							<span class="finalTotalPrice"><strong></strong></span><span>원</span>
 						</div>
-						<button type="button" class="btn btn-danger search-btn">삭제</button>
+						<button type="button" class="btn btn-danger search-btn" id="cartDelBtn">삭제</button>
 						<button type="button" class="btn btn-primary search-btn">주문</button>
+
 					</div>
 					<!-- end id3 -->
 
@@ -604,9 +642,95 @@
 
 	});// end jQuery
 	
-// 내글목록 페이징
-let userList = '${userInfo[0].userBoardList}';
-console.log('페이징 총 갯수?' + userList.length);
+	// # 장바구니 금액 처리
+	function setTotalInfo() {
+		
+		let totalPrice = 0;
+		let finalTotalPrice = 0;
+		
+		$('.prodCheck').each(function(index, element) {
+			if($(element).find('.individual_checkbox').is(':checked') === true){
+				//총 가격
+				totalPrice += parseFloat($(element).find('.individual_pPrice').val().replace(/,/g,''));
+			}
+		});
+		finalTotalPrice += totalPrice;
+		//총 가격
+		$('.totalprice').text(totalPrice.toLocaleString());
+		
+		//최종 가격
+		$('.finalTotalPrice').text(totalPrice.toLocaleString());
+	};// end 장바구니 총금액
+	
+	setTotalInfo();
+	
+	// # 체크 박스에 따른 가격 변화
+	$('.individual_checkbox').on('change', function() {
+		setTotalInfo($('.prodCheck'));
+	});// end individual_checkbox
+	
+	// # 체크 박스 전체 선택
+/* 	$('.prodAllCheck').on('click', function() {
+		
+		if($('.prodAllCheck').prop('checked')){
+			$('individual_checkbox').prop('checked', true);
+		} else {
+			$('individual_checkbox').prop('checked', false);
+		}
+		setTotalInfo($('.prodCheck'));
+	});// end prodAllCheck */
+	
+	
+
+	// # 장바구니 삭제 버튼
+	$('#cartDelBtn').click(function(e) {
+		e.preventDefault();
+		
+		if(confirm('장바구니에서 삭제 하시겠습니까?') == true){
+			let cartNo = 0;
+			$('.prodCheck').each(function(index, element) {
+				if($(element).find('.individual_checkbox').is(':checked') === true){
+					//총 가격
+					cartNo = parseFloat($(element).find('.individual_cartNo').val());
+					console.log(cartNo);
+				}
+			});
+			
+			if($('input:checkbox[name=checkBox]:checked').length > 1){
+				console.log($('input:checkbox[name=checkBox]:checked').length);
+				alert('장바구니에서는 한개씩만 삭제 가능합니다.');
+				return;
+			} else {
+				$.ajax({
+					url : '<c:url value="/cart/delete/" />' + cartNo,
+					type : 'post',
+					data : cartNo,
+					success : function(result) {
+						if(result == 'delSuccess'){
+							alert('장바구니에서 삭제가 완료 되었습니다.');
+							refresh();
+						} else {
+							alert('관리자에게 문의하세요');
+						}
+						
+					}
+				})// end ajax
+			}
+			
+			
+			
+		} else {
+			return false;
+		}
+		
+		
+	});// end cartDelBtn
+	
+	
+	// # 새로고침 함수
+	function refresh(){
+		location.reload();
+	}; // end 새로고침
 </script>
 
 

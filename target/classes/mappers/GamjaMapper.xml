@@ -7,7 +7,7 @@
 
 	<!-- 동적 SQL 쿼리 -->
 	<sql id="search">
-		WHERE p_name LIKE '%'||#{keyword}||'%' OR p_brand LIKE '%'||#{keyword}||'%' OR p_model LIKE '%'||#{keyword}||'%'
+		WHERE p_name LIKE '%'||#{keyword}||'%' OR p_brand LIKE '%'||#{keyword}||'%' OR p_model LIKE '%'||#{keyword}||'%' OR user_id LIKE '%'||#{keyword}||'%'
 	</sql>
 	
 	<!-- ResultMap :  mybits-config.xml 에 셋팅함 / typeAlias type="com.spring.TomLand.command.GamjaVO"

@@ -36,6 +36,13 @@
 		<result property="viewCount" column="view_count"/>
 	</resultMap>
 	
+	<resultMap type="cart" id="cartList">
+		<id property="cartNo"  column="cart_no"/>
+		<result property="userNo" column="user_no"/>
+		<result property="gno" column="gno"/>
+		<result property="bookCount" column="book_count"/>
+	</resultMap>
+	
 	<!-- 아이디 중복 체크 -->
 	<select id="idCheck" resultType="int">
 		select count(*) from users
@@ -123,7 +130,15 @@
 		select * from freeboard
 		where writer = #{userId}
 	</select>
-
+	
+	<!-- 마이Cart -->
+	<select id="getCart" resultType="cart">
+		select a.cart_no, a.user_no, a.gno, a.book_count, b.user_id, b.p_name, b.p_price
+		from cart a
+		left join gamja b
+		on a.gno = b.gno
+		where a.user_no = #{userNo}
+	</select>
 
 
 

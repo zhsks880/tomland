@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.TomLand.command.CartVO;
 import com.spring.TomLand.command.FreeBoardVO;
 import com.spring.TomLand.command.PageVO;
 import com.spring.TomLand.command.UserVO;
@@ -147,11 +148,12 @@ public class UserServiceImpl implements IUserService {
 		return mapper.imgCount(userId);
 	}
 	
-	//getTotal
-	public PageCreator getPc(PageVO vo) {
-		pc.setPaging(vo);
-		pc.setArticleTotalCount(mapper.writeCount(vo.getUserId()));
-		return pc;
+	@Override
+	public List<CartVO> getCart(int userNo) {
+		
+		List<CartVO> cart = mapper.getCart(userNo);
+		
+		return cart;
 	}
 	
 }

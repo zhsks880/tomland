@@ -468,41 +468,48 @@ $(function() {
 	});// end sns 댓글 삭제
 
 	
-
-	
 	// # 삭제 처리
 	$('#contentDiv').on('click', '.link-inner #delBtn', function(e) {
 		e.preventDefault();
-		confirm('삭제 하시겠습니까??');
+		if(confirm('삭제 하시겠습니까?') == true){
+			const bno = $(this).attr('href');
+			
+			$.ajax({
+				url : '<c:url value="/sns/delete" />',
+				type : 'post',
+				data : bno,
+				contentType : 'application/json',
+				dataType : 'text',
+				success : function(result) {
+					if(result === 'noAuth'){
+						alert('내글만 삭제 가능합니다.');
+					} else if (result === 'fail'){
+						alert('사진이 없는데 삭제를 시도했다!! 관리자에게 문의!');
+					} else {
+						alert('게시물이 삭제 되었습니다');
+						getListLike(true).done(getList);
+					}			
+				},
+				error : function() {
+					alert('관리자에게 문의하세요');
+				}
+			}); // end ajax
 		
-		const bno = $(this).attr('href');
-		
-		$.ajax({
-			url : '<c:url value="/sns/delete" />',
-			type : 'post',
-			data : bno,
-			contentType : 'application/json',
-			dataType : 'text',
-			success : function(result) {
-				if(result === 'noAuth'){
-					alert('내글만 삭제 가능합니다.');
-				} else if (result === 'fail'){
-					alert('사진이 없는데 삭제를 시도했다!! 관리자에게 문의!');
-				} else {
-					alert('게시물이 삭제 되었습니다');
-					getListLike(true).done(getList);
-				}			
-			},
-			error : function() {
-				alert('관리자에게 문의하세요');
-			}
-		}); // end ajax
+		} else {
+			return false;
+		}
 	}); // end 삭제
+
 	
 	
 	// # 게시 버튼 클릭 이벤트
 	$('#uploadBtn').click(function() {
-		regist();	//등록 함수 호출
+		
+		if(confirm('오늘의 생각을 등록 하시겠습니까?') == true){
+			regist();	//등록 함수 호출
+		} else {
+			return false;
+		}
 	});// end uploadBtn
 
 	// # regist : 등록 담당 함수

@@ -46,7 +46,7 @@
 					<p style="margin-bottom: 20px; font-weight: bold; font-size: 35px;">${article[0].PName}
 					</p>
 					<div class="user3">
-						<p style="font-size: 30px; font-weight: bold;">${article[0].PPrice}</p>
+						<p style="font-size: 30px; font-weight: bold;">${article[0].PPrice}원</p>
 					</div>
 					<div style="text-align: left;">
 						<p>무이자할부 | 카드 자세히보기</p>
@@ -68,12 +68,12 @@
 					<div class="user2">
 						<p>총 상품 금액</p>
 						<!-- <p>총 수량 <span style="font-weight: bold;">1</span>개 |  -->
-						<span style="font-weight: bold;">${article[0].PPrice}</span>
+						<span style="font-weight: bold;">${article[0].PPrice}원</span>
 					</div>
 					<div class="user2">
 						<c:choose>
 							<c:when test="${login.userId == article[0].userId}">
-								<button type="button" class="btn btn-info" id="modBtn" style="color: white;">수정하기</button>
+							<!-- 	<button type="button" class="btn btn-info" id="modBtn" style="color: white;">수정하기</button> -->
 								<button type="button" class="btn btn-danger" id="delBtn">삭제하기</button>
 							</c:when>
 							<c:otherwise>
@@ -96,7 +96,7 @@
 						data-toggle="tab" data-bs-target="#id1" href="#id1-tab"
 						id="id1-tab">상세정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab"
-						data-bs-target="#id2" href="#id2-tab" id="id2-tab">리뷰 2,000</a></li>
+						data-bs-target="#id2" href="#id2-tab" id="id2-tab">리뷰()</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab"
 						data-bs-target="#id3" href="#id3-tab" id="id3-tab">Q&A 20</a></li>
 				</ul>
@@ -115,6 +115,7 @@
 							<table>
 								<tbody>
 									<tr>
+										<input type="hidden" value="${article[0].userNo}">
 										<th>상품번호</th>
 										<td name="gno" class="gno">${article[0].gno}</td>
 										<th>상품상태</th>
@@ -325,7 +326,7 @@ let isFinish = false;
 let gno = '${article[0].gno}';
 // # getList 함수
 function getList(page, reset) {
-	console.log('page: ' + page1);
+	console.log('page: ' + page);
 	console.log('reset: ' + reset);
 	console.log('gno: ' + gno);
 	
@@ -413,7 +414,12 @@ $(function () {
 	
 	// # 리뷰 등록 버튼
 	$('#uploadBtn').click(function () {
-		regist();
+		
+		if(confirm('리뷰를 등록 하시겠습니까?') == true){
+			regist();
+		} else {
+			return false;
+		}
 	});// end uploadBtn
 	
 	// # 리뷰 보기 버튼
@@ -505,39 +511,73 @@ $(function () {
 	
 	//# 게시글 삭제
 	$('#delBtn').click(function() {
-		confirm('삭제 하시겠습니까??');
 		
-		let gno = '${article[0].gno}';
-		
-		$.ajax({
-			type : 'post',
-			url : '<c:url value="/gamja/delete" />',
-			data : gno,
-			dateType : 'text',
-			contentType : 'application/json',
-			success : function(result) {
-				if(result === 'delSuccess'){
-					alert('정상 삭제 되었습니다.');
-					location.href="<c:url value='/gamja/gamjaList' />";
-				} else {
-					alert('삭제 실패');
-				}	
-			},
-			error : function() {
-				alert('관리자에게 문의');
-			}
-		});//end ajax
+		if(confirm('삭제 하시겠습니까?') == true){
+			let gno = '${article[0].gno}';
+			
+			$.ajax({
+				type : 'post',
+				url : '<c:url value="/gamja/delete" />',
+				data : gno,
+				dateType : 'text',
+				contentType : 'application/json',
+				success : function(result) {
+					if(result === 'delSuccess'){
+						alert('정상 삭제 되었습니다.');
+						location.href="<c:url value='/gamja/gamjaList' />";
+					} else {
+						alert('삭제 실패');
+					}	
+				},
+				error : function() {
+					alert('관리자에게 문의');
+				}
+			});//end ajax
+		} else {
+			return false;
+		}
 	});// end 게시글 삭제
 	
 	
 	// # 게시글 수정
 	$('#modBtn').click(function() {
-		confirm('수정하러 가시겠습니까?');
-
-		let gno = '${article[0].gno}';
-		location.href = "<c:url value='/gamja/gamjaModify/' />" + gno
 		
+		if(confirm('수정하러 가시겠습니까?') == true){
+			let gno = '${article[0].gno}';
+			location.href = "<c:url value='/gamja/gamjaModify/' />" + gno
+		} else {
+			return false;
+		}		
 	});// end 게시글 수정
+	
+	// # 장바구니 버튼 클릭
+	$('#basketBtn').click(function() {
+		
+		const form = {
+				userNo : '${login.userNo}',
+				gno : '${article[0].gno}',
+				bookCount : '1'
+		}
+		
+		$.ajax({
+			url : '<c:url value="/cart/add" />',
+			type : 'post',
+			data : form,
+			success : function(result) {
+				if(result == '0'){
+					alert('장바구니에 추가하지 못했습니다.관리자 문의');
+				} else if (result == '1'){
+					alert('장바구니에 추가되었습니다.');
+				} else if (result == '2'){
+					alert('장바구니에 이미 추가되어 있습니다.');
+				} else if (result == '5'){
+					alert('로그인해야 가능한 서비스입니다.');
+				}
+			}
+			
+		})// end ajax
+		
+	}); // end 장바구니 버튼 클릭
 	
 	
 	

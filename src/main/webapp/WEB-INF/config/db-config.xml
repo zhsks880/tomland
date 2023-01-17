@@ -52,6 +52,7 @@
 	<mybatis-spring:scan base-package="com.spring.TomLand.snsreply.mapper"/>
 	<mybatis-spring:scan base-package="com.spring.TomLand.gamja.mapper"/>
 	<mybatis-spring:scan base-package="com.spring.TomLand.gamjareview.mapper"/>
+	<mybatis-spring:scan base-package="com.spring.TomLand.cart.mapper"/>
 
 
 </beans>

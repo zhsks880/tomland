@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.TomLand.command.CartVO;
 import com.spring.TomLand.command.PageVO;
 import com.spring.TomLand.command.UserVO;
 import com.spring.TomLand.user.service.IUserService;
@@ -113,12 +114,16 @@ public class UserController {
 	public void userMypage(HttpSession session, Model model) {
 		
 		String id = ((UserVO) session.getAttribute("login")).getUserId();
+		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
+		log.info("유저no " + userNo);
 		List<UserVO> vo = service.getInfo(id);
-		PageVO pageVo = new PageVO();
-		pageVo.setUserId(id);
-
+		List<CartVO> cart = service.getCart(userNo);
+		
+		log.info("마이페이지cart " + service.getCart(userNo));
+		
 		model.addAttribute("userInfo", vo);
-		model.addAttribute("pc", service.getPc(pageVo));
+		model.addAttribute("cart", cart);
+		log.info("마이페이지 modelcart " + cart);
 	}
 	
 	//MyPage Profile 보기 요청

@@ -62,9 +62,10 @@
 						<span>●상품명</span><input type="text" id="productName"
 							name="pName" maxlength="25" class="form-control"
 							placeholder="상품명을 입력"> 
-							<span>●가격</span><input type="text"
+							<span>●가격</span><span style="font-size: 13px; color:tomato;">&ensp;숫자만 입력하세요</span>
+							<input type="text"
 							id="productPrice" name="pPrice" maxlength="15"
-							class="form-control" placeholder="가격을 입력"> 
+							class="form-control" placeholder="가격입력" style="width: 50%;">
 							<span>●상품상태</span>
 						<select class="form" id="productCondition" name="pCondition">
 							<option value="">선택</option>
@@ -120,8 +121,8 @@
 							●상세이미지4 : <input type="file" name="file" onchange="readURL4(this);"><br>
 						</div>
 
-						<button type="button" class="btn btn-primary" id="regiBtn">등록</button>
-						<button type="button" class="btn btn-primary">취소</button>
+						<button type="button" class="btn btn-primary" id="regiBtn" style="background: #edad53; color: black; border: 0px;">등록</button>
+						<button type="button" class="btn btn-primary" style="background: tomato; color: black; border: 0px;">취소</button>
 
 					</form>
 				</div>
@@ -210,6 +211,40 @@
 				return false;
 			}
 		});
+	
+	// # 가격 입력 숫자 및 콤마만
+		//NullCheck
+	function isEmpty(value) {
+		if(value.length == 0 || value == null){
+			return true;
+		} else {
+			return false;
+		}
+	}
+		// Number check
+	function isNumeric(value) {
+		let regExp = /^[0-9]+$/g;
+		return regExp.test(value);
+	}
+		//숫자 세자리 마다 콤마 추가
+	function currencyFormatter(amount) {
+		return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
+	}
+	$('#productPrice').on('focus', function() {
+		let val = $('#productPrice').val();
+		if(!isEmpty(val)){
+			val = val.replace(/,/g,'');
+			$('#productPrice').val(val);
+		}
+	});
+	
+	$('#productPrice').on('blur', function() {
+		let val = $('#productPrice').val();
+		if(!isEmpty(val) && isNumeric(val)){
+			val = currencyFormatter(val);
+			$('#productPrice').val(val);
+		}
+	}); // end 가격 입력 숫자 및 콤마
 
 	}); // end JQuery
 

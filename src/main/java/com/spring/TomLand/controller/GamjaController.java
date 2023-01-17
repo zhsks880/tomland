@@ -104,6 +104,8 @@ public class GamjaController {
 	public String getContent(@PathVariable int gno, Model model) {
 		
 		model.addAttribute("article", service.getContent(gno));
+		
+		log.info("감자상품VO" + service.getContent(gno));
 		return "gamja/gamjaContent";
 	}
 	
@@ -130,7 +132,6 @@ public class GamjaController {
 	@ResponseBody
 	public String delete(@RequestBody int gno) {
 		service.delete(gno);
-		
 		
 		return "delSuccess";
 	}

@@ -27,5 +27,7 @@ public class GamjaReviewVO {
 	private String profileFileName;
 	private String profileFileRealName;
 	
+	//리뷰 카운트 추가
+	private int reviewCnt;
 	
 }

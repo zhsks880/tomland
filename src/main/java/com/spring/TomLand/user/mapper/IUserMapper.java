@@ -2,6 +2,7 @@ package com.spring.TomLand.user.mapper;
 
 import java.util.List;
 
+import com.spring.TomLand.command.CartVO;
 import com.spring.TomLand.command.UserVO;
 
 public interface IUserMapper {
@@ -32,5 +33,9 @@ public interface IUserMapper {
 	
 	//나의 총판매상품 카운트
 	int gamjaCount(String userId);
+	
+	//카트 목록
+	public List<CartVO> getCart(int userNo);
+	
 	
 }
