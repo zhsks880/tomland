@@ -101,7 +101,13 @@
 
 	//글쓰기 버튼 클릭
 	$('#reg-btn').click(function() {
-		location.href = '${pageContext.request.contextPath}/board/boardWrite';
+		
+		const userId = '${login.userId}';
+		if(userId === ''){
+			alert('로그인 해야 이용 가능한 서비스입니다.');
+		} else {
+			location.href = '${pageContext.request.contextPath}/board/boardWrite';
+		}
 	});
 	
 	//메세지 출력

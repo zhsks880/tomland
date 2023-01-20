@@ -57,4 +57,7 @@ public class SnsBoardVO {
 	
 	//좋아요 갯수 변수 추가
 	private int likeCnt;
+	
+	//게시글에 대한 댓글 개수 받을 변수
+	private int replySnsCnt;
 }

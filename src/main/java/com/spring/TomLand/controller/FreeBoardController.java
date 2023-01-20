@@ -29,7 +29,6 @@ public class FreeBoardController {
 	//자유게시판 이동
 	@GetMapping("/boardList")
 	public void boardList(PageVO vo, Model model) {
-		log.info("자유게시판pageVO " + vo);
 		
 		model.addAttribute("boardList", service.getList(vo));
 		model.addAttribute("pc", service.getPc(vo));
@@ -63,14 +62,12 @@ public class FreeBoardController {
 	@GetMapping("/boardModify")
 	public void update(int bno, Model model, @ModelAttribute("p") PageVO vo) {
 		model.addAttribute("article", service.getContent(bno));
-		log.info("서비스에서 오는 content: " + service.getContent(bno));
 	}
 	
 	//글 수정하기
 	@PostMapping("/boardModify")
 	public String update(FreeBoardVO vo, RedirectAttributes ra) {
 		service.update(vo);
-		log.info("서비스에서 업데이트 VO: " + vo);
 		ra.addFlashAttribute("msg", "modify");
 		return "redirect:/board/boardContent/" + vo.getBno();
 	}

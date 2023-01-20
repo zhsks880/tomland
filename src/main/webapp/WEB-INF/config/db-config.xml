@@ -54,5 +54,17 @@
 	<mybatis-spring:scan base-package="com.spring.TomLand.gamjareview.mapper"/>
 	<mybatis-spring:scan base-package="com.spring.TomLand.cart.mapper"/>
 
-
+	
+	<!-- multipart exception : MultipartResolver 에러시 이동 할 것 설정 -->
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">
+					/error
+				</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
 </beans>

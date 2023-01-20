@@ -103,7 +103,14 @@
 								<div class="user1">
 									<select class="phone1"
 										style="width: 10%; border-radius: 10px; text-align: center;"
-										id="userphone1" name="userphone1">
+										id="userPhone1" name="userPhone1">
+										<c:if test="${login == null}">
+										<option value="" selected="selected">선택</option>
+										</c:if>
+										
+										<c:if test="${login != null}">
+										<option value="${userInfo[0].userPhone1}" selected="selected">${userInfo[0].userPhone1}</option>
+										</c:if>
 										<option>010</option>
 										<option>011</option>
 										<option>017</option>
@@ -119,7 +126,7 @@
 
 							<!-- 이메일 -->
 							<div class="userform" style="width: 100%;">
-								<label style="font-size: 20px; font-weight: bold; text-align: left;">이메일</label>&nbsp;&nbsp;&nbsp;&nbsp;<span id="msgPwchk"></span>
+								<label style="font-size: 20px; font-weight: bold; text-align: left;">이메일</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: tomato; font-size: 15px;">회원정보 수정 시 메일인증 다시 해주세요!</span>
 								<div class="user1">
 									<input type="text" style="height: 100%; width: 50%;" id="userEmail1" name="userEmail1"
 										value="${userInfo[0].userEmail1}" class="form-control">&nbsp;
@@ -131,7 +138,7 @@
 										</c:if>
 										
 										<c:if test="${login != null}">
-										<option value="">${userInfo[0].userEmail2}</option>
+										<option value="">${userInfo[0].userEmail2}(수정 시 다시 선택)</option>
 										</c:if>
 										
 										<option>@naver.com</option>
@@ -201,7 +208,12 @@
 								</td>
 							</tr>
 						</form>
-
+						
+						<br>
+						<br>
+						<br>
+						<button type="button" class="btn btn-danger" id="userDelBtn" style="width: 15%;">회원탈퇴</button>	
+					
 					</div>
 					<!-- end id1 -->
 
@@ -306,6 +318,7 @@
 									<input type="hidden" class="individual_bookCount" value="${cart.bookCount}">
 									<input type="hidden" class="individual_cartNo" value="${cart.cartNo}">
 									<input type="hidden" class="individual_pPrice" value="${cart.PPrice}">
+									<input type="hidden" class="individual_gno" value="${cart.gno}">
 									</td>
 									
 									<td class="prodGno">${cart.gno}</td>
@@ -326,7 +339,7 @@
 									
 									<td class="prodGno"></td>
 									
-									<td class="prodName">장바구니에 담긴 상품이 없습니다.</a></td>
+									<td class="prodName">장바구니에 담긴 상품이 없습니다.</td>
 									
 									<td class="prodPrice"></td>
 									
@@ -345,13 +358,14 @@
 							<span class="finalTotalPrice"><strong></strong></span><span>원</span>
 						</div>
 						<button type="button" class="btn btn-danger search-btn" id="cartDelBtn">삭제</button>
-						<button type="button" class="btn btn-primary search-btn">주문</button>
+						<button type="button" class="btn btn-primary search-btn" id="orderBtn">주문</button>
 
 					</div>
 					<!-- end id3 -->
 
 				</div>
 				<!-- end tab-content -->
+
 			</div>
 			<!-- end 우측메뉴 -->
 		</div>
@@ -387,7 +401,6 @@
 
 			reader.onload = function(event) {
 				$('#fileImg').attr("src", event.target.result);
-				console.log(event.target)
 			}
 		}
 	}; // end redURL
@@ -470,8 +483,38 @@
 
 		//# 회원정보 수정 버튼
 		$('#modify-btn').click(function(){
-			confirm('정보를 수정 하시겠습니까??');
-			$('#updateForm').submit();
+			
+			if ($('#userPw').val().trim() === '') {
+				alert('비밀번호 입력은 필수 입니다.');
+				$('#userPw').focus();
+				return;
+			}
+			if ($('#userPw').val() !== $('#pwConfirm').val()) {
+				alert('비밀번호가 일치하지 않습니다. 확인해주세요.');
+				$('#pwConfirm').focus();
+				return;
+			}
+			if ($('#userEmail1').val().trim() === '') {
+				alert('이메일은 필수 입력입니다.');
+				$('#userEmail1').focus();
+				return;
+			}
+			if ($('#userEmail1').attr('readonly') !== 'readonly'){
+				alert('이메일 인증은 필수입니다.');
+				$('#userEmail1').focus();
+				return;
+			}
+			if ($('#fileImg').attr('src') === ''){
+				alert('프로필 사진 등록은 필수 입니다.');
+				return;
+			}
+			
+			if(confirm('정보를 수정하시겠습니까?') == true){
+				$('#updateForm').submit();
+			} else {
+				return false;
+			}
+
 		});
 		// end 회원정보 수정
 		
@@ -680,7 +723,6 @@
 		setTotalInfo($('.prodCheck'));
 	});// end prodAllCheck */
 	
-	
 
 	// # 장바구니 삭제 버튼
 	$('#cartDelBtn').click(function(e) {
@@ -692,12 +734,10 @@
 				if($(element).find('.individual_checkbox').is(':checked') === true){
 					//총 가격
 					cartNo = parseFloat($(element).find('.individual_cartNo').val());
-					console.log(cartNo);
 				}
 			});
 			
 			if($('input:checkbox[name=checkBox]:checked').length > 1){
-				console.log($('input:checkbox[name=checkBox]:checked').length);
 				alert('장바구니에서는 한개씩만 삭제 가능합니다.');
 				return;
 			} else {
@@ -716,14 +756,9 @@
 					}
 				})// end ajax
 			}
-			
-			
-			
 		} else {
 			return false;
 		}
-		
-		
 	});// end cartDelBtn
 	
 	
@@ -731,6 +766,47 @@
 	function refresh(){
 		location.reload();
 	}; // end 새로고침
+	
+	
+	// # 주문 버튼
+	$('#orderBtn').click(function(e) {
+		e.preventDefault();
+		
+		if(confirm('주문하러 가시겠습니까?') == true){
+			let cartNo = 0;
+			let gno = 0;
+			$('.prodCheck').each(function(index, element) {
+				if($(element).find('.individual_checkbox').is(':checked') === true){
+					//총 가격
+					cartNo = parseFloat($(element).find('.individual_cartNo').val());
+					gno = parseFloat($(element).find('.individual_gno').val());
+				}
+			});
+			
+			if($('input:checkbox[name=checkBox]:checked').length > 1){
+				alert('주문은 한개 씩 가능합니다.');
+				return;
+			} else {
+				
+				location.href = "<c:url value='/user/userOrder/' />" + gno;
+
+			}
+		} else {
+			return false;
+		}
+	}); //end orderBtn
+	
+	
+	// # 회원탈퇴
+	$('#userDelBtn').click(function() {
+		if(confirm('회원탈퇴하러 가시겠습니까?') == true){
+			location.href = "<c:url value='/user/userDelete' />";
+		} else {
+			return false;
+		}
+	}); // userDelBtn
+	
+	
 </script>
 
 

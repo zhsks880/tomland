@@ -139,8 +139,35 @@
 		on a.gno = b.gno
 		where a.user_no = #{userNo}
 	</select>
+	
+	<!-- 마이Order -->
+	<select id="getOrder" resultType="gamja">
+		select * from gamja
+		where gno = #{gno}
+	</select>
 
-
-
+	<!-- E-mail 중복 체크 -->
+	<select id="emailCheck" resultType="int">
+		select count(*) from users
+		where user_email1 = #{userEmail1}
+	</select>
+	
+	<!-- 아이디 찾아오기 -->
+	<select id="getUserId" resultType="string">
+		select user_id from users
+		where user_email1 = #{userEmail1}
+	</select>
+	
+	<!-- 비밀번호 찾기(업데이트) -->
+	<update id="userPwUpdate">
+		update users set user_pw = #{userPw}
+		where user_id = #{userId}
+	</update>
+	
+	<!-- 회원 삭제 -->
+	<delete id="userDelete">
+		delete from users
+		where user_id = #{userIdChk}
+	</delete>
 
 </mapper>

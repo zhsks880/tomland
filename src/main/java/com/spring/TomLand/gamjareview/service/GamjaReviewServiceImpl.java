@@ -48,7 +48,7 @@ public class GamjaReviewServiceImpl implements IGamjaReviewService {
 		vo.setFileLoca(fileLoca);
 		vo.setFileName(fileName);
 		vo.setFileRealName(fileRealName);
-		log.info("매퍼로 갈 VO" + vo);
+
 		mapper.insert(vo);
 	}
 

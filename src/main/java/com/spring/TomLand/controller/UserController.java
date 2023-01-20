@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.spring.TomLand.command.CartVO;
+import com.spring.TomLand.command.GamjaVO;
 import com.spring.TomLand.command.PageVO;
 import com.spring.TomLand.command.UserVO;
 import com.spring.TomLand.user.service.IUserService;
@@ -66,7 +69,7 @@ public class UserController {
 	@ResponseBody
 	@GetMapping("/mailCheck")
 	public String mailCheck(String email) {
-		log.info("인증 받을 이메일 : " + email);
+		log.info("인증 받은 이메일 : " + email);
 		
 		return mailService.joinEmail(email);
 	}
@@ -115,15 +118,12 @@ public class UserController {
 		
 		String id = ((UserVO) session.getAttribute("login")).getUserId();
 		int userNo = ((UserVO) session.getAttribute("login")).getUserNo();
-		log.info("유저no " + userNo);
+
 		List<UserVO> vo = service.getInfo(id);
 		List<CartVO> cart = service.getCart(userNo);
-		
-		log.info("마이페이지cart " + service.getCart(userNo));
-		
+				
 		model.addAttribute("userInfo", vo);
 		model.addAttribute("cart", cart);
-		log.info("마이페이지 modelcart " + cart);
 	}
 	
 	//MyPage Profile 보기 요청
@@ -170,9 +170,78 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	//Myorder 이동
+	@GetMapping("/userOrder/{gno}")
+	public String userOrder(HttpSession session, Model model, @PathVariable int gno) {
+		String id = ((UserVO) session.getAttribute("login")).getUserId();
+
+		List<UserVO> vo = service.getInfo(id);
+		
+		GamjaVO order = service.getOrder(gno);
+		
+		model.addAttribute("userInfo", vo);
+		model.addAttribute("order", order);
+		
+		return "/user/userOrder";
+	}
 	
+	//findId 이동
+	@GetMapping("/findId")
+	public void findId() {
+		
+	}
 	
+	//이메일 체크
+	@ResponseBody
+	@PostMapping("/emailCheck")
+	public String emailCheck(String userEmail1) {
+		
+		int result = service.emailCheck(userEmail1);
+		if(result == 1) {
+			return "duplicatied";
+		} else {
+			return "ok";
+		}
+	}
 	
+	//회원 아이디 찾기
+	@ResponseBody
+	@PostMapping("/getId")
+	public String getUserId(@RequestBody String userEmail1, Model model) {
+		
+		return service.getUserId(userEmail1);
+	}
+	
+	//findPw 이동
+	@GetMapping("/findPw")
+	public void findPw() {
+		
+	}
+	
+	//비밀번호 찾기 실행
+	@PostMapping("/userPwUpdate")
+	@ResponseBody
+	public String userPwUpdate(@RequestBody UserVO vo) {
+
+		service.userPwUpdate(vo);
+		return "modifySuccess";
+	}
+	
+	//회원탈퇴 페이지 이동
+	@GetMapping("/userDelete")
+	public void userDelete() {
+		
+	}
+	
+	//회원탈퇴
+	@PostMapping("/delete")
+	public String userDelete(String userIdChk, RedirectAttributes ra, HttpSession session) {
+				
+		service.userDelete(userIdChk);
+		session.invalidate();
+		ra.addFlashAttribute("msg", "userDel");
+		return "redirect:/";
+	}
 	
 	
 }

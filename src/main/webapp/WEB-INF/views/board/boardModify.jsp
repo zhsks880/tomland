@@ -41,7 +41,7 @@
 
             <div class="conform" style="margin-top: 30px;">
               <input value="내용: " style="border: 0px; width: 10%; background-color: white;" disabled>
-              <textarea type="text" style="width: 90%;" class="form-control" rows="10" name="content">${article.content}</textarea>
+              <textarea type="text" style="width: 90%; white-space: pre-line;" class="form-control" rows="10" name="content">${article.content}</textarea>
             </div>
             <br>
             <div class="writefoot">

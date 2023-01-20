@@ -73,7 +73,6 @@ public class SnsController {
 	@GetMapping("/getList")
 	@ResponseBody
 	public List<SnsBoardVO> getList(PageVO paging){
-		log.info("sns에 오는 paging" + paging);
 		paging.setCpp(3); 	//처음에 글 3개 표현
 		return service.getList(paging);
 	}

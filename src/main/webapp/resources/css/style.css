@@ -1705,3 +1705,34 @@ div .userform {
   width: 50%;
   height: 50%;
 }
+
+/*--------------------------------------------------------------
+# Order
+--------------------------------------------------------------*/
+
+#orderForm label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#orderForm {
+
+  border-radius: 5px;
+  text-align: left;
+}
+
+#orderForm .form-group {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 10px;
+}
+
+#orderForm span {
+  line-height: 3;
+}
+
+#orderForm #useremail1 {
+  width: 40%;
+}
+
+

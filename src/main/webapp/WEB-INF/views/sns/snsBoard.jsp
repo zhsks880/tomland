@@ -13,7 +13,7 @@
         <!-- 좌측 폼: userupload 사진 영역 -->
         <div class="col-lg-2 d-lg-flex flex-lg-column order-1 order-lg-2 regi">
           <div class="fileDiv">
-          	<img id="fileImg" src="${pageContext.request.contextPath}/resources/img/heart.png">
+          	<img id="fileImg" src="">
           </div>
         </div>
 
@@ -61,19 +61,19 @@
 			<div class="modal-content">
 				<div class="modal-body row">
 					<div class="modal-img col-sm-7 col-xs-5" >
-						<img src="../resources/img/img_ready.png" id="snsImg" width="100%">
+						<img src="" id="snsImg" width="100%">
 					</div>
 					<div class="modal-con col-sm-5 col-xs-3">
 						<div class="modal-inner">
 						<div class="profile">
-							<img src="../resources/img/profile.png" id="snsPro" width="15%">
+							<img src="" id="snsPro" width="15%">
 						</div>
 						<div class="title user2">
 							<p id="snsWriter" style="color: #5777ba; margin-bottom: 1px;">테스트</p>
 							<small id="snsRegdate" style="color: tomato;">21시간전</small>
 						</div>
 						<div class="content-inner">
-							<p id="snsContent">삶이 우리를 끝없이 시험하기에 고어텍스는 한계를 테스트합니다</p>
+							<p id="snsContent" style="white-space: pre-line;">삶이 우리를 끝없이 시험하기에 고어텍스는 한계를 테스트합니다</p>
 						</div>
 						
 						<!-- reply 댓글 입력 -->
@@ -119,7 +119,6 @@ function readURL(input) {
 
 		reader.onload = function(event) {
 			$('#fileImg').attr("src", event.target.result);
-			console.log(event.target)
 		}
 	}
 }; // end redURL
@@ -138,7 +137,6 @@ $(function() {
 	// #promise 방식 : .done or .fail
 	getListLike(true).done(getList)
 	.fail(function(error) {
-		console.log(error);
 	});
 	
 	// # getListLike 함수: 게시판 진입 시 각 회원의 좋아요 게시물 목록 (isReset의 출처)
@@ -157,7 +155,6 @@ $(function() {
 					else deferred.resolve(result, page, false);
 				},
 				error : function() {
-					console.log('getListLike 에러남')	;
 					deferred.rejected();
 				}
 			});// end ajax
@@ -171,9 +168,6 @@ $(function() {
 	
 	// # getList 함수
 	function getList(likeList, page, reset) {	
-		console.log('page: ' + page);
-		console.log('reset: ' + reset);
-		console.log('좋아요 리스트: ' + likeList);
 
 		if(reset === true){
 			str = '';
@@ -187,7 +181,7 @@ $(function() {
 					
 					for(let i=0; i<list.length; i++){
 						str +=
-							`<div class="title-inner user1">
+							`<div class="title-inner user1" style="border: 1px solid #5777ba;">
 				              <div class="profile">
 				                <img src="${pageContext.request.contextPath}/sns/display1?profileFileLoca=` + list[i].profileFileLoca + `&profileFIleName=` + list[i].profileFileName +`" style="width: 50px; height: 50px;">
 				              </div>
@@ -198,7 +192,7 @@ $(function() {
 				            </div>
 				            <!-- 내용 영역 -->
 				            <div class="content-inner">
-				              <p>` + (list[i].content === null ? '' : list[i].content) + `</p>
+				              <p style="white-space: pre-line;">` + (list[i].content === null ? '' : list[i].content) + `</p>
 				            </div>
 				            <!-- 이미지 영역 -->
 				            <div class="image-inner">
@@ -263,7 +257,6 @@ $(function() {
 		$.getJSON(
 			'<c:url value="/sns/getDetail/" />' + bno,
 			function(data){
-				console.log(data);
 				
 				const src = '${pageContext.request.contextPath}/sns/display?fileLoca=' + data.fileLoca + '&fileName=' + data.fileName;
 				const profile = '${pageContext.request.contextPath}/sns/display1?profileFileLoca=' + data.profileFileLoca + '&profileFIleName=' + data.profileFileName;
@@ -280,12 +273,10 @@ $(function() {
 				$.getJSON(
 					'<c:url value="/snsReply/getList/" />' + bno,
 					function(data){
-						console.log('getSNS bno : ' + bno);
 						let snsTotal = data.total;
 						let snsReplyList = data.list;
 						let snsStr = '';
 						
-						console.log('snsReplyList길이: '+ snsReplyList.length);
 						//더보기 버튼 활성화
 						//if(snsTotal <= snsPage * 3){
 							
@@ -319,7 +310,6 @@ $(function() {
 		$.getJSON(
 			'<c:url value="/sns/getDetail/" />' + bno,
 			function(data){
-				console.log(data);
 				
 				const src = '${pageContext.request.contextPath}/sns/display?fileLoca=' + data.fileLoca + '&fileName=' + data.fileName;
 				const profile = '${pageContext.request.contextPath}/sns/display1?profileFileLoca=' + data.profileFileLoca + '&profileFIleName=' + data.profileFileName;
@@ -337,12 +327,10 @@ $(function() {
 				$.getJSON(
 					'<c:url value="/snsReply/getList/" />' + bno,
 					function (data){
-						console.log('getSNS bno : ' + bno);
 						let snsTotal = data.total;
 						let snsReplyList = data.list;
 						let snsStr = '';
 						
-						console.log('snsReplyList길이: '+ snsReplyList.length);
 						//더보기 버튼 활성화
 						//if(snsTotal <= snsPage * 3){
 							
@@ -429,11 +417,7 @@ $(function() {
 		let rno = $(this).siblings(".rno").val();
 		let snsWriter = $(this).siblings(".snsWriter").val();
 		let userId = '${login.userId}';
-		console.log('댓글 rno ' + rno);
-		console.log('댓글 bno ' + bno);
-		console.log('댓글 남자' + snsWriter);
-		console.log('댓글 남자' + userId);
-		
+
 		if(snsWriter === userId){
 			
 			const snsReplyNo = {
@@ -504,11 +488,15 @@ $(function() {
 	
 	// # 게시 버튼 클릭 이벤트
 	$('#uploadBtn').click(function() {
-		
-		if(confirm('오늘의 생각을 등록 하시겠습니까?') == true){
-			regist();	//등록 함수 호출
+		const userId = '${login.userId}';
+		if(userId === ''){
+			alert('로그인 해야 이용 가능한 서비스입니다.');
 		} else {
-			return false;
+			if(confirm('오늘의 생각을 등록 하시겠습니까?') == true){
+				regist();	//등록 함수 호출
+			} else {
+				return false;
+			}
 		}
 	});// end uploadBtn
 
@@ -533,7 +521,6 @@ $(function() {
 		//FormData 로 만들어서 ajax로 컨트롤러로 보내기
 		const formData = new FormData();
 		const data = $('#file');
-		console.log('폼데이터: ' + formData, '||| data: ' + data, '||| data의 0번 인덱스: ' + data[0].files );
 		
 		formData.append('file', data[0].files[0]);
 		const content = $('#content').val();
@@ -615,7 +602,7 @@ $(function() {
 				getListLike(false).done(getList);
 			}
 		} else {
-			console.log('더이상 불러올 글이 없습니다.');
+			
 		}
 	}); // end 무한 스크롤
 

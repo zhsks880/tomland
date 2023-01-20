@@ -37,9 +37,7 @@ public class ReplyController {
 	//댓글 등록
 	@PostMapping("/replyRegist")
 	public String replyRegist(@RequestBody ReplyVO vo) {
-		
-		log.info("ReplyVO ??? " + vo);
-		
+				
 		service.replyRegist(vo);
 		return "regSuccess";
 	}
@@ -50,11 +48,11 @@ public class ReplyController {
 		
 		List<ReplyVO> list = service.getList(bno, pageNum);
 		int total = service.getTotal(bno);
-		log.info("list 값??" + list);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("total", total);
-		log.info("화면으로 가는 맵!" + map);
+		
 		return map;
 	}
 	
@@ -62,13 +60,9 @@ public class ReplyController {
 	//댓글 Profile 보기 요청 : replyList 에서 꺼내오기
 	@GetMapping("/display1/{replyId}")
 	public ResponseEntity<byte[]> getReplyFile(@PathVariable String replyId){
-		
-		log.info("들어온 replyID" + replyId);
-		
+				
 		List<ReplyVO> rProfile = service.selectOne(replyId);
-		
-		log.info("가져온 rProfile: " + rProfile);
-		
+				
 		File file = new File("c:/test/tomland/" + rProfile.get(ReplyVO).getReplyFileLoca() + "/" + rProfile.get(ReplyVO).getReplyFileName());
 		
 		ResponseEntity<byte[]> result = null;
@@ -86,7 +80,7 @@ public class ReplyController {
 	//댓글 수정하기
 	@PostMapping("/update")
 	public String update(@RequestBody ReplyVO vo) {
-		log.info("댓글 수정시 오는 VO" + vo);
+
 		service.update(vo);
 		
 		return "modSuccess";

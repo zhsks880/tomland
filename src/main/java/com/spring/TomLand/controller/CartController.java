@@ -37,7 +37,6 @@ public class CartController {
 		
 		//카트 넣기
 		int result = service.addCart(vo);
-		log.info("카트로 가는 값!" + service.addCart(vo));
 		return result + "";
 	}
 	

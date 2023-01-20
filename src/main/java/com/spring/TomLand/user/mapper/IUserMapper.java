@@ -3,6 +3,7 @@ package com.spring.TomLand.user.mapper;
 import java.util.List;
 
 import com.spring.TomLand.command.CartVO;
+import com.spring.TomLand.command.GamjaVO;
 import com.spring.TomLand.command.UserVO;
 
 public interface IUserMapper {
@@ -37,5 +38,18 @@ public interface IUserMapper {
 	//카트 목록
 	public List<CartVO> getCart(int userNo);
 	
+	//주문 목록
+	public GamjaVO getOrder(int gno);
 	
+	//이메일 체크
+	int emailCheck(String userEmail1);
+	
+	//아이디 가져오기
+	String getUserId(String userEmail1);
+	
+	//비밀번호 업데이트
+	void userPwUpdate(UserVO vo);
+	
+	//회원 탈퇴
+	void userDelete(String userIdChk);
 }

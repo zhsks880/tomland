@@ -36,7 +36,7 @@ public class SnsReplyController {
 	//sns댓글 등록
 	@PostMapping("/replyRegist")
 	public String replyRegist(@RequestBody SnsReplyVO vo) {
-		log.info("sns댓글 VO: " + vo);
+
 		service.replyRegist(vo);
 		
 		return "regSuccess";
@@ -80,8 +80,5 @@ public class SnsReplyController {
 		service.delete(vo);
 		return "delSuccess";
 	}
-	
-		
-	
 	
 }

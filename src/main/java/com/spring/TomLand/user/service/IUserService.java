@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.TomLand.command.CartVO;
+import com.spring.TomLand.command.GamjaVO;
 import com.spring.TomLand.command.PageVO;
 import com.spring.TomLand.command.UserVO;
 import com.spring.TomLand.util.PageCreator;
@@ -41,5 +42,18 @@ public interface IUserService {
 	//카트 목록
 	public List<CartVO> getCart(int userNo);
 	
-
+	//주문 목록
+	public GamjaVO getOrder(int gno);
+	
+	//이메일 체크
+	int emailCheck(String userEmail1);
+	
+	//아이디 가져오기
+	String getUserId(String userEmail1);
+	
+	//비밀번호 업데이트
+	void userPwUpdate(UserVO vo);
+	
+	//회원 탈퇴
+	void userDelete(String userIdChk);
 }

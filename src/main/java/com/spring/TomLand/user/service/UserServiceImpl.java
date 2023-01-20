@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.TomLand.command.CartVO;
 import com.spring.TomLand.command.FreeBoardVO;
+import com.spring.TomLand.command.GamjaVO;
 import com.spring.TomLand.command.PageVO;
 import com.spring.TomLand.command.UserVO;
 import com.spring.TomLand.user.mapper.IUserMapper;
@@ -156,4 +157,33 @@ public class UserServiceImpl implements IUserService {
 		return cart;
 	}
 	
+	@Override
+	public GamjaVO getOrder(int gno) {
+		return mapper.getOrder(gno);
+	}
+	
+	@Override
+	public int emailCheck(String userEmail1) {
+		return mapper.emailCheck(userEmail1);
+	}
+	
+	@Override
+	public String getUserId(String userEmail1) {
+		return mapper.getUserId(userEmail1);
+	}
+	
+	@Override
+	public void userPwUpdate(UserVO vo) {
+		//비밀번호 암호화
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String securePw = encoder.encode(vo.getUserPw());
+		vo.setUserPw(securePw);
+		
+		mapper.userPwUpdate(vo);
+	}
+	
+	@Override
+	public void userDelete(String userIdChk) {
+		mapper.userDelete(userIdChk);
+	}
 }

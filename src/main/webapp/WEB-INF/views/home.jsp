@@ -14,8 +14,8 @@
 				class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1"
 				data-aos="fade-up">
 				<div>
-					<h1>Welcome to Tom land page</h1>
-					<h2>여기에 나의 프로젝트들을 모아놓아보자</h2>
+					<h1>Welcome to TomLand</h1>
+					<h2>안녕하세요. TomLand 에 오신걸 환영합니다. <br>톰랜드는 개인용 포트폴리오 입니다.</h2>
 					<a href="https://google.com" class="download-btn"><i
 						class="bx bxl-play-store"></i> 구글 가기</a> <a
 						href="https://blog.naver.com/zhsks880" class="download-btn"><i
@@ -44,7 +44,7 @@
 
 			<div class="section-title">
 				<h2>Introduce</h2>
-				<p>안녕안녕 소개소개 하는 곳이야</p>
+				<p>현재까지 구현된 포트폴리오의 서비스 입니다</p>
 			</div>
 
 			<div class="row no-gutters">
@@ -53,44 +53,38 @@
 						<div class="row">
 							<div class="col-md-6 icon-box" data-aos="fade-up">
 								<i class="bx bx-receipt"></i>
-								<h4>Corporis voluptates sit</h4>
-								<p>Consequuntur sunt aut quasi enim aliquam quae harum
-									pariatur laboris nisi ut aliquip</p>
+								<h4>회원가입 서비스</h4>
+								<p>우측상단 Login 버튼 클릭 시 회원 가입이 가능합니다.</p>
 							</div>
 							<div class="col-md-6 icon-box" data-aos="fade-up"
 								data-aos-delay="100">
 								<i class="bx bx-cube-alt"></i>
-								<h4>Ullamco laboris nisi</h4>
-								<p>Excepteur sint occaecat cupidatat non proident, sunt in
-									culpa qui officia deserunt</p>
+								<h4>Mypage 서비스</h4>
+								<p>Mypage 에서는 여러가지 들을 확인할 수 있습니다.</p>
 							</div>
 							<div class="col-md-6 icon-box" data-aos="fade-up"
 								data-aos-delay="200">
 								<i class="bx bx-images"></i>
-								<h4>Labore consequatur</h4>
-								<p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus
-									ut maiores omnis facere</p>
+								<h4>자유게시판</h4>
+								<p>일반적인 텍스트만 작성하는 자유게시판이 있습니다.</p>
 							</div>
 							<div class="col-md-6 icon-box" data-aos="fade-up"
 								data-aos-delay="300">
 								<i class="bx bx-shield"></i>
-								<h4>Beatae veritatis</h4>
-								<p>Expedita veritatis consequuntur nihil tempore laudantium
-									vitae denat pacta</p>
+								<h4>이미지게시판</h4>
+								<p>FaceBook과 유사한 이미지와 오늘의 생각을 등록하는 이미지게시판이 있습니다.</p>
 							</div>
 							<div class="col-md-6 icon-box" data-aos="fade-up"
 								data-aos-delay="400">
 								<i class="bx bx-atom"></i>
-								<h4>Molestiae dolor</h4>
-								<p>Et fuga et deserunt et enim. Dolorem architecto ratione
-									tensa raptor marte</p>
+								<h4>따릉이찾기</h4>
+								<p>서울시내에 있는 따릉이(자전거대여) 의 잔여대수가 확인이 가능합니다.</p>
 							</div>
 							<div class="col-md-6 icon-box" data-aos="fade-up"
 								data-aos-delay="500">
 								<i class="bx bx-id-card"></i>
-								<h4>Explicabo consectetur</h4>
-								<p>Est autem dicta beatae suscipit. Sint veritatis et sit
-									quasi ab aut inventore</p>
+								<h4>감자마켓</h4>
+								<p>회원끼리 물건을 사고 팔 수 있는 감자마켓이 있습니다.</p>
 							</div>
 						</div>
 					</div>
@@ -115,23 +109,15 @@
 					<img src="resources/img/details-1.png" class="img-fluid" alt="">
 				</div>
 				<div class="col-md-8 pt-4" data-aos="fade-up">
-					<h3>어떤게 있을까?</h3>
-					<p class="fst-italic">Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-						dolore magna aliqua.</p>
+					<h3>회원가입 기능</h3>
+					<p class="fst-italic">우측상단에 있는 Login 버튼을 클릭하면 회원 가입, 로그인, 아이디찾기, 비밀번호 찾기 등의 기능이 구현되어 있습니다.</p>
 					<ul>
-						<li><i class="bi bi-check"></i> Ullamco laboris nisi ut
-							aliquip ex ea commodo consequat.</li>
-						<li><i class="bi bi-check"></i> Duis aute irure dolor in
-							reprehenderit in voluptate velit.</li>
-						<li><i class="bi bi-check"></i> Iure at voluptas aspernatur
-							dignissimos doloribus repudiandae.</li>
-						<li><i class="bi bi-check"></i> Est ipsa assumenda id facilis
-							nesciunt placeat sed doloribus praesentium.</li>
+						<li><i class="bi bi-check"></i> 회원가입시에는 E-mail 인증 체크로 진행이 이루어 집니다.</li>
+						<li><i class="bi bi-check"></i> 회원가입시 등록하는 E-mail은 실제 본인의 E-mail을 사용해야 추후에 아이디 찾기 및 비밀번호 찾기 서비스가 이용이 가능합니다.</li>
+						<li><i class="bi bi-check"></i> 로그인 한 회원은 Mypage 내에서 내정보수정, 내게시물확인, 장바구니 기능이 가능합니다.</li>
+						<li><i class="bi bi-check"></i> 회원정보 수정 시 회원의 E-mail 인증을 거쳐야 하며, 본인의 프로필 사진 또한 첨부를 해야 합니다.</li>
 					</ul>
-					<p>Voluptas nisi in quia excepturi nihil voluptas nam et ut.
-						Expedita omnis eum consequatur non. Sed in asperiores aut
-						repellendus. Error quisquam ab maiores. Quibusdam sit in officia</p>
+					<p>TomaLand의 대부분의 서비스는 로그인 한 사용자에게 제공이 되고 있으므로 회원가입을 꼭 진행 후 서비스를 이용해 주시기 바랍니다.</p>
 				</div>
 			</div>
 
@@ -140,20 +126,16 @@
 					<img src="resources/img/details-2.png" class="img-fluid" alt="">
 				</div>
 				<div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
-					<h3>두번째 소개란</h3>
-					<p class="fst-italic">Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-						dolore magna aliqua.</p>
-					<p>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-						Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-						cupidatat non proident, sunt in culpa qui officia deserunt mollit
-						anim id est laborum</p>
-					<p>Inventore id enim dolor dicta qui et magni molestiae.
-						Mollitia optio officia illum ut cupiditate eos autem. Soluta
-						dolorum repellendus repellat amet autem rerum illum in. Quibusdam
-						occaecati est nisi esse. Saepe aut dignissimos distinctio id enim.
-					</p>
+					<h3>자유게시판</h3>
+					<p class="fst-italic">자유게시판은 상단메뉴의 Tom`s Service 를 통해 접속이 가능합니다.</p>
+					<ul>
+						<li><i class="bi bi-check"></i> 일반적인 텍스트 형식을 지원하는 자유게시판입니다.</li>
+						<li><i class="bi bi-check"></i> 글등록, 글수정, 글삭제 가 가능합니다.</li>
+						<li><i class="bi bi-check"></i> 자유게시판 글들은 댓글 기능도 지원을 하고 있습니다. 댓글 또한 회원에 한해서 등록 및 삭제가 가능합니다.</li>
+						<li><i class="bi bi-check"></i> 자유게시판의 페이징 처리는 1페이지당 5개의 글만 보여지게 되어있으며, 페이징 처리는 페이지 버튼으로 되어 있습니다.</li>
+						<li><i class="bi bi-check"></i> 자유게시판의 댓글은 페이징 처리는 1페이지당 2개의 댓글만 보여지게 되어있으며, 페이징 처리는 더보기 버튼으로 되어 있습니다.</li>
+					</ul>
+					<p>내 글을 수정하게 되었다면, 내글을 클릭 시에 작성일->수정일로 변경되어 보여지게 됩니다.</p>
 				</div>
 			</div>
 
@@ -162,24 +144,16 @@
 					<img src="resources/img/details-3.png" class="img-fluid" alt="">
 				</div>
 				<div class="col-md-8 pt-5" data-aos="fade-up">
-					<h3>세번째 소개란</h3>
-					<p>Cupiditate placeat cupiditate placeat est ipsam culpa.
-						Delectus quia minima quod. Sunt saepe odit aut quia voluptatem hic
-						voluptas dolor doloremque.</p>
+					<h3>이미지게시판</h3>
+					<p class="fst-italic">이미지게시판은 상단메뉴의 Tom`s Service 를 통해 접속이 가능합니다.</p>
 					<ul>
-						<li><i class="bi bi-check"></i> Ullamco laboris nisi ut
-							aliquip ex ea commodo consequat.</li>
-						<li><i class="bi bi-check"></i> Duis aute irure dolor in
-							reprehenderit in voluptate velit.</li>
-						<li><i class="bi bi-check"></i> Facilis ut et voluptatem
-							aperiam. Autem soluta ad fugiat.</li>
+						<li><i class="bi bi-check"></i> SNS를 모티브로 한 이미지게시판 입니다.</li>
+						<li><i class="bi bi-check"></i> 사진한장과 오늘의 생각 등 짧은 주제거리를 등록이 가능한 곳 입니다.</li>
+						<li><i class="bi bi-check"></i> 이미지게시판에도 간단한 댓글이 가능하도록 구현되어 있습니다.</li>
+						<li><i class="bi bi-check"></i> 이미지게시판의 페이징 처리는 1페이지당 3개의 글만 보여지게 되어있으며, 페이징 처리는 스크롤을 내리면 계속 보는 형식으로 되어 있습니다.</li>
+						<li><i class="bi bi-check"></i> 회원들간 이미지게시물에 대하여 좋아요 기능이 가능하며, 좋아요 취소도 가능합니다. </li>
 					</ul>
-					<p>Qui consequatur temporibus. Enim et corporis sit sunt harum
-						praesentium suscipit ut voluptatem. Et nihil magni debitis
-						consequatur est.</p>
-					<p>Suscipit enim et. Ut optio esse quidem quam reiciendis esse
-						odit excepturi. Vel dolores rerum soluta explicabo vel fugiat eum
-						non.</p>
+					<p>화면왼쪽편은 이미지업로드 버튼 클릭 시 내가 등록 할 이미지를 미리보는 형식으로 되어 있습니다.</p>
 				</div>
 			</div>
 
@@ -188,24 +162,16 @@
 					<img src="resources/img/details-4.png" class="img-fluid" alt="">
 				</div>
 				<div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
-					<h3>네번째 소개란</h3>
-					<p class="fst-italic">Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-						dolore magna aliqua.</p>
-					<p>Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-						Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-						cupidatat non proident, sunt in culpa qui officia deserunt mollit
-						anim id est laborum</p>
+					<h3>감자마켓</h3>
+					<p class="fst-italic">감자마켓은 상단메뉴의 Tom`s Service 를 통해 접속이 가능합니다.</p>
 					<ul>
-						<li><i class="bi bi-check"></i> Et praesentium laboriosam
-							architecto nam .</li>
-						<li><i class="bi bi-check"></i> Eius et voluptate. Enim earum
-							tempore aliquid. Nobis et sunt consequatur. Aut repellat in
-							numquam velit quo dignissimos et.</li>
-						<li><i class="bi bi-check"></i> Facilis ut et voluptatem
-							aperiam. Autem soluta ad fugiat.</li>
+						<li><i class="bi bi-check"></i> 번개장터를 모티브로 한 중고물품 거래 서비스 입니다.</li>
+						<li><i class="bi bi-check"></i> 판매하고자하는 물건에 대해 메인이미지, 상세이미지4장으로 물품을 등록하도록 구성되어 있으며, 물품에 대한 정보를 등록할 수 있게 되어 있습니다.</li>
+						<li><i class="bi bi-check"></i> 등록되어 있는 물건들은 장바구니로 이동 후 구매가 가능하며, 장바구니는 Mypage 내의 탭에서 확인이 가능합니다.</li>
+						<li><i class="bi bi-check"></i> 감자마켓의 페이징 처리는 1페이지당 4개의 글만 보여지게 되어있으며, 페이징 처리는 페이지 버튼으로 되어 있습니다.</li>
+						<li><i class="bi bi-check"></i> 회원들간 서로 물건을 올리고 서로 구매 및 판매 기능을 구현하고자 만든 서비스 입니다.</li>
 					</ul>
+					<p>따릉이 찾기는 공공데이터포털 사이트에 있는 따릉이(자전거대여) 서비스 내에 현재 대여가 가능한 자전거 대수를 맵에서 확인이 가능하게 구현하였습니다.</p>
 				</div>
 			</div>
 
@@ -262,7 +228,7 @@
 	<!-- End Gallery Section -->
 
 	<!-- ======= NameCard Section ======= -->
-	<section id="testimonials" class="testimonials section-bg">
+	<!-- <section id="testimonials" class="testimonials section-bg">
 		<div class="container" data-aos="fade-up">
 
 			<div class="section-title">
@@ -328,11 +294,11 @@
 			</div>
 
 		</div>
-	</section>
+	</section> -->
 	<!-- NameCard Section -->
 
 	<!-- ======= Pricing Section ======= -->
-	<section id="pricing" class="pricing">
+	<!-- <section id="pricing" class="pricing">
 		<div class="container">
 
 			<div class="section-title">
@@ -399,7 +365,7 @@
 			</div>
 
 		</div>
-	</section>
+	</section> -->
 	<!-- End Pricing Section -->
 
 	<!-- ======= FAQ Section ======= -->
@@ -409,65 +375,46 @@
 			<div class="section-title">
 
 				<h2>Frequently Asked Questions</h2>
-				<p>여기는 F.A.Q 야...궁금궁금</p>
+				<p>개발자 전상현에 관한 FaQ</p>
 			</div>
 
 			<div class="accordion-list">
 				<ul>
 					<li data-aos="fade-up"><i class="bx bx-help-circle icon-help"></i>
-						<a data-bs-toggle="collapse" class="collapse"
-						data-bs-target="#accordion-list-1">1번째 궁금함 <i
-							class="bx bx-chevron-down icon-show"></i><i
-							class="bx bx-chevron-up icon-close"></i></a>
-						<div id="accordion-list-1" class="collapse show"
-							data-bs-parent=".accordion-list">
-							<p>1번째 궁금함의 답</p>
+						<a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1">개발자로 전향 
+						<i class="bx bx-chevron-down icon-show"></i>
+						<i class="bx bx-chevron-up icon-close"></i></a>
+						<div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+							<p>늦은나이에 개발자로 전향하였지만 배움에 있어서는 열정이 가득합니다.</p>
 						</div></li>
 
-					<li data-aos="fade-up" data-aos-delay="100"><i
-						class="bx bx-help-circle icon-help"></i> <a
-						data-bs-toggle="collapse" data-bs-target="#accordion-list-2"
-						class="collapsed">2번째 궁금함 <i
-							class="bx bx-chevron-down icon-show"></i><i
-							class="bx bx-chevron-up icon-close"></i></a>
-						<div id="accordion-list-2" class="collapse"
-							data-bs-parent=".accordion-list">
-							<p>2번째 궁금함의 답</p>
+					<li data-aos="fade-up" data-aos-delay="100"><i class="bx bx-help-circle icon-help"></i>
+					<a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed">학원수료생 
+					<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+						<div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+							<p>ict 인재개발원에서 2022년 8월 23일~ 2023년 2월 14일 까지 (스마트웹&콘텐츠 개발)웹기반 스마트 콘텐츠 응용 SW 개발자 양성과정을 수료 하였습니다.</p>
 						</div></li>
 
-					<li data-aos="fade-up" data-aos-delay="200"><i
-						class="bx bx-help-circle icon-help"></i> <a
-						data-bs-toggle="collapse" data-bs-target="#accordion-list-3"
-						class="collapsed">3번째 궁금함 <i
-							class="bx bx-chevron-down icon-show"></i><i
-							class="bx bx-chevron-up icon-close"></i></a>
-						<div id="accordion-list-3" class="collapse"
-							data-bs-parent=".accordion-list">
-							<p>3번째 궁금함의 답</p>
+					<li data-aos="fade-up" data-aos-delay="200"><i class="bx bx-help-circle icon-help"></i>
+					<a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed">프로그래밍적으로 가능한 것들
+					<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+						<div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+							<p>HTML5, CSS, JavaScript, JQuery, Java, JSP, Oracle, Spring, myBatis, ajax, git, gitHub, visualStudio, 등을 다룰 수 있습니다.</p>
 						</div></li>
 
-					<li data-aos="fade-up" data-aos-delay="300"><i
-						class="bx bx-help-circle icon-help"></i> <a
-						data-bs-toggle="collapse" data-bs-target="#accordion-list-4"
-						class="collapsed">4번째 궁금함 <i
-							class="bx bx-chevron-down icon-show"></i><i
-							class="bx bx-chevron-up icon-close"></i></a>
-						<div id="accordion-list-4" class="collapse"
-							data-bs-parent=".accordion-list">
-							<p>4번째 궁금함의 답.</p>
+					<li data-aos="fade-up" data-aos-delay="300"><i class="bx bx-help-circle icon-help"></i>
+					<a data-bs-toggle="collapse" data-bs-target="#accordion-list-4" class="collapsed">TomLand 제작
+					<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+						<div id="accordion-list-4" class="collapse" data-bs-parent=".accordion-list">
+							<p>현재까지는 TomLand 는 혼자서 모두 기획하고 제작한 포트폴리오 사이트 입니다.</p>
 						</div></li>
 
-					<li data-aos="fade-up" data-aos-delay="400"><i
-						class="bx bx-help-circle icon-help"></i> <a
-						data-bs-toggle="collapse" data-bs-target="#accordion-list-5"
-						class="collapsed">5번째 궁금함 <i
-							class="bx bx-chevron-down icon-show"></i><i
-							class="bx bx-chevron-up icon-close"></i></a>
-						<div id="accordion-list-5" class="collapse"
-							data-bs-parent=".accordion-list">
-							<p>5번째 궁금함의 답</p>
+					<li data-aos="fade-up" data-aos-delay="400"><i class="bx bx-help-circle icon-help"></i>
+					<a data-bs-toggle="collapse" data-bs-target="#accordion-list-5" class="collapsed">개발자로 나아갈 방향
+					<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+						<div id="accordion-list-5" class="collapse" data-bs-parent=".accordion-list">
+							<p>끝없는 공부와 연습으로 개발자로 앞으로 나아가고 싶습니다.</p>
 						</div></li>
-
 				</ul>
 			</div>
 
@@ -499,7 +446,7 @@
 							<i class="bx bx-phone"></i>
 							<h4>Call Me</h4>
 							<p>
-								+82 10 8243 8141<br>+82 10 8243 8141
+								+82 10 8242 8141<br>+82 10 8242 8141
 							</p>
 						</div>
 						<div class="col-lg-6 info">
@@ -569,5 +516,8 @@ AOS.init();
 	 }
 	 if(msg === 'logout'){
 		 alert('로그아웃 되었습니다.');
+	 }
+	 if(msg === 'userDel'){
+		 alert('회원탈퇴 처리 되었습니다.');
 	 }
  </script>

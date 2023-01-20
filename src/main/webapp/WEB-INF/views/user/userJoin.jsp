@@ -63,6 +63,7 @@
 						<div class="user1">
 							<select class="phone1" style="width: 10%; border-radius: 10px; text-align: center;"
 								id="userPhone1" name="userPhone1">
+								<option value="" selected="selected">선택</option>
 								<option>010</option>
 								<option>011</option>
 								<option>017</option>
@@ -171,7 +172,6 @@
 
 			reader.onload = function (event) {
 				$('#fileImg').attr("src", event.target.result);
-				console.log(event.target)
 			}
 		}
 	}; // end redURL

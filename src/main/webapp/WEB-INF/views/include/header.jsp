@@ -73,12 +73,16 @@
           <li><a class="nav-link scrollto active" href="<c:url value='/' />" >Home</a></li>
           <li><a class="nav-link scrollto" href="#features">Intro</a></li>
           <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
-          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+<!--           <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li> -->
           <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           <li class="dropdown"><a href="#"><span>Tom`s Service</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="<c:url value='/board/boardList' /> ">자유게시판</a></li>
-              <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+              <li><a href="<c:url value='/sns/snsBoard' />">이미지게시판</a></li>
+              <li><a href="<c:url value='/util/gonggong' />">따릉이찾기</a></li>
+              <li><a href="<c:url value='/gamja/gamjaList' />">감자마켓</a></li>
+           <!-- <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="#">Deep Drop Down 1</a></li>
                   <li><a href="#">Deep Drop Down 2</a></li>
@@ -87,12 +91,9 @@
                   <li><a href="#">Deep Drop Down 5</a></li>
                 </ul>
               </li> -->
-              <li><a href="<c:url value='/sns/snsBoard' />">이미지게시판</a></li>
-              <li><a href="<c:url value='/util/gonggong' />">따릉이찾기</a></li>
-              <li><a href="<c:url value='/gamja/gamjaList' />">감자마켓</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          
           
           <!-- 로그인 안했을 시 버튼 -->
           <c:if test="${login == null}">
@@ -107,6 +108,7 @@
           </c:if>
           
         </ul>
+        
         <i class="bi bi-list mobile-nav-toggle"></i>
         <!-- 로그인 Modal-->
         <div class="modal fade" id="log-in">
@@ -175,8 +177,12 @@
                           회원가입</a>
                       </td>
                     </tr>
-
+					
                   </table>
+                  <br>
+                  <div class="find" style="text-align: center; font-size: 13px;">
+                  <span><a href="<c:url value='/user/findId' />">아이디 찾기</a></span>&nbsp;&nbsp; | &nbsp;&nbsp;<span><a href="<c:url value='/user/findPw' />">비밀번호 찾기</a></span>
+                  </div>
                 </form>
               </div>
             </div>

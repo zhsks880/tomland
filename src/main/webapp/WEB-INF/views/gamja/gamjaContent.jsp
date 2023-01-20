@@ -21,7 +21,7 @@
 							class="form-control search" name="keyword" id="keywordInput"
 							placeholder="상품명, 등록인 검색 후 엔터" style="width: 50%;">
 						<button type="button" class="btn btn-primary search-btn"
-							style="background-color: #edad53; border: 0px;">내물건등록</button>
+							style="background-color: #edad53; border: 0px;" id="gamjaRegistBtn">내물건등록</button>
 					</div>
 				</form>
 			</div>
@@ -78,7 +78,7 @@
 							</c:when>
 							<c:otherwise>
 								<button type="button" class="btn btn-danger" id="basketBtn">장바구니</button>
-								<button type="button" class="btn btn-warning" id="orderBtn">주문하기</button>
+							<!-- 	<button type="button" class="btn btn-warning" id="orderBtn">주문하기</button> -->
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -147,7 +147,7 @@
 								<tbody>
 									<tr>
 										<th>상품상세설명</th>
-										<td style="border-right: 0px; text-align: left;" name="pDesc">${article[0].PDesc}</td>
+										<td style="border-right: 0px; text-align: left; white-space: pre-line;" name="pDesc">${article[0].PDesc}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -289,7 +289,6 @@ function readURL(input) {
 
 		reader.onload = function(event) {
 			$('#fileImg').attr("src", event.target.result);
-			console.log(event.target)
 		}
 	}
 }; // end redURL
@@ -326,10 +325,7 @@ let isFinish = false;
 let gno = '${article[0].gno}';
 // # getList 함수
 function getList(page, reset) {
-	console.log('page: ' + page);
-	console.log('reset: ' + reset);
-	console.log('gno: ' + gno);
-	
+
 	if(reset === true){
 		str = '';
 	}
@@ -449,7 +445,6 @@ $(function () {
 		//FormData 로 만들어서 ajax로 컨트롤러로 보내기
 		const formData = new FormData();
 		const data = $('#file');
-		console.log('폼데이터: ' + formData, '||| data: ' + data, '||| data의 0번 인덱스: ' + data[0].files );
 		
 		formData.append('file', data[0].files[0]);
 		const content = $('#content').val();
@@ -552,34 +547,48 @@ $(function () {
 	
 	// # 장바구니 버튼 클릭
 	$('#basketBtn').click(function() {
-		
-		const form = {
-				userNo : '${login.userNo}',
-				gno : '${article[0].gno}',
-				bookCount : '1'
-		}
-		
-		$.ajax({
-			url : '<c:url value="/cart/add" />',
-			type : 'post',
-			data : form,
-			success : function(result) {
-				if(result == '0'){
-					alert('장바구니에 추가하지 못했습니다.관리자 문의');
-				} else if (result == '1'){
-					alert('장바구니에 추가되었습니다.');
-				} else if (result == '2'){
-					alert('장바구니에 이미 추가되어 있습니다.');
-				} else if (result == '5'){
-					alert('로그인해야 가능한 서비스입니다.');
-				}
+		const userId = '${login.userId}';
+		if(userId === ''){
+			alert('로그인 해야 이용 가능한 서비스입니다.');
+		} else {
+			const form = {
+					userNo : '${login.userNo}',
+					gno : '${article[0].gno}',
+					bookCount : '1'
 			}
 			
-		})// end ajax
+			$.ajax({
+				url : '<c:url value="/cart/add" />',
+				type : 'post',
+				data : form,
+				success : function(result) {
+					if(result == '0'){
+						alert('장바구니에 추가하지 못했습니다.관리자 문의');
+					} else if (result == '1'){
+						alert('장바구니에 추가되었습니다.');
+					} else if (result == '2'){
+						alert('장바구니에 이미 추가되어 있습니다.');
+					} else if (result == '5'){
+						alert('로그인해야 가능한 서비스입니다.');
+					}
+				}
+				
+			})// end ajax
+		}
+		
 		
 	}); // end 장바구니 버튼 클릭
 	
-	
+	// # 내물건등록 버튼 클릭
+	$('#gamjaRegistBtn').click(function () {
+		const userId = '${login.userId}';
+		if(userId === ''){
+			alert('로그인 해야 이용 가능한 서비스입니다.');
+		} else {
+			location.href = "<c:url value='/gamja/gamjaRegist' />"
+		}
+		
+	}); // end 내 물건등록버튼
 	
 }); //end JQuery
 

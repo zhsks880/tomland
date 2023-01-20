@@ -30,7 +30,6 @@ public class FreeBoardServiceImpl implements IFreeBoardService {
 
 	@Override
 	public List<FreeBoardVO> getList(PageVO vo) {
-		log.info("PageVO 는 무엇? " + vo);
 		return mapper.getList(vo);
 	}
 

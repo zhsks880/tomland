@@ -41,7 +41,7 @@ public class GamjaServiceImpl implements IGamjaService {
 
 	@Override
 	public List<GamjaVO> getList(PageVO vo) {
-		log.info("PageVO 는 무엇?" + vo);
+
 		return mapper.getList(vo);
 	}
 	

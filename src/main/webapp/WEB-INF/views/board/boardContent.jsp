@@ -41,9 +41,9 @@
 
             <div class="conform" style="margin-top: 30px;">
               <input value="내용: " style="border: 0px; width: 10%; background-color: white;" disabled>
-              <textarea type="text" style="width: 90%; background: #f8f8f8;" class="form-control" rows="10" name="content" 
-                readonly>${article.content}</textarea>
+              <textarea type="text" style="width: 90%; background: #f8f8f8; white-space: pre-line;" class="form-control" rows="10" name="content" readonly>${article.content}</textarea>
             </div>
+            
             <br>
             <div class="writefoot">
             
@@ -144,7 +144,7 @@
 		const replyFileLoca = '${login.userFileLoca}';
 		const replyFileName = '${login.userFileName}';
 		const replyFileRealName = '${login.userFileRealName}';
-		console.log(bno);
+
 		if(reply === ''){
 			alert('내용을 입력해 주세요~');
 			return;
@@ -201,7 +201,6 @@
 			$.getJSON(
 					'<c:url value="/reply/getList/" />' + bno + '/' + pageNum,
 					function(data) {
-						console.log(data); // 날아온 데이터 확인
 						
 						let total = data.total;	//컨트롤러에서 온 총 댓글 수
 						let replyList = data.list;	//컨트롤러에서 온 총 댓글 리스트
@@ -326,7 +325,6 @@
 					
 					if(confirm('댓글을 삭제 하시겠습니까?') == true){
 						const rno = $(this).siblings(".replyRno").val(); 
-						console.log("삭제Rno " + rno);
 						const replyDelete = {
 							'rno' : rno,
 							'replyId' : replyId

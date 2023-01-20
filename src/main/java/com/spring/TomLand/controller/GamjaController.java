@@ -45,6 +45,7 @@ public class GamjaController {
 	@GetMapping("/gamjaList")
 	public void gamjaList(PageVO vo, Model model) {
 		
+		vo.setCpp(4);
 		model.addAttribute("gamjaList", service.getList(vo));
 		model.addAttribute("pc", service.getPc(vo));
 	}
@@ -105,7 +106,6 @@ public class GamjaController {
 		
 		model.addAttribute("article", service.getContent(gno));
 		
-		log.info("감자상품VO" + service.getContent(gno));
 		return "gamja/gamjaContent";
 	}
 	
