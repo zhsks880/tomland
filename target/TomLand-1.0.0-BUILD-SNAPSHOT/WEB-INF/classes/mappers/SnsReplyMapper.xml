@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.TomLand.snsreply.mapper.ISnsReplyMapper">
+	
+	<!-- 동적 SQL 쿼리 -->
+	
+	<!-- ResultMap : mybits-config.xml 에 셋팅함 / typeAlias type="com.spring.TomLand.command.SnsReplyVO"
+			alias="replysns" -->
+	<resultMap type="replysns" id="replysnsMap">
+	</resultMap>
+	
+	<!-- 댓글 등록 -->
+	<insert id="replyRegist">
+		insert into snsreply
+		(rno, bno, sns_writer, sns_reply, upload_path, file_loca, file_name, file_realName)
+		values
+		(snsreply_seq.nextval, #{bno}, #{snsWriter}, #{snsReply}, #{uploadPath}, #{fileLoca}, #{fileName}, #{fileRealName})
+	</insert>
+	
+	<!-- 댓글 조회 -->
+	<select id="getList" resultMap="replysnsMap">
+		<![CDATA[
+			select * from (
+				select rownum as rn, tbl.* from(
+					select * from snsreply
+						where bno = #{bno}
+						order by rno desc
+					) tbl
+				)
+			where rn > (#{paging.pageNum} -1) * #{paging.cpp}
+			and rn <= #{paging.pageNum} * #{paging.cpp}		
+		]]>
+	</select>
+	
+	<!-- 총 댓글 수 조회 -->
+	<select id="getTotal" resultType="int">
+		select count(*) from snsreply
+		where bno = #{bno}
+	</select>
+
+	<!-- 회원 정보 조회 -->
+	<select id="selectOne" resultMap="replysnsMap">
+		select * from snsreply where sns_writer = #{snsWriter}
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete">
+		delete from snsreply
+		where rno = ${rno}
+		and bno = ${bno}
+	</delete>
+	
+	
+</mapper>

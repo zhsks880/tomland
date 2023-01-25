@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.TomLand.gamja.mapper.IGamjaMapper">
+
+	<!-- 동적 SQL 쿼리 -->
+	<sql id="search">
+		WHERE p_name LIKE '%'||#{keyword}||'%' OR p_brand LIKE '%'||#{keyword}||'%' OR p_model LIKE '%'||#{keyword}||'%' OR user_id LIKE '%'||#{keyword}||'%'
+	</sql>
+	
+	<!-- ResultMap :  mybits-config.xml 에 셋팅함 / typeAlias type="com.spring.TomLand.command.GamjaVO"
+			alias="gamja" /> -->
+	<resultMap type="gamja" id="GamjaMap">
+	</resultMap>
+
+	<!-- 글 등록 -->
+	<insert id="gamjaRegist">
+		<selectKey resultType="int" keyProperty="gno" order="AFTER">
+			select max(gno) from gamja
+		</selectKey>
+		insert into gamja(gno, user_no, user_id, p_name, p_price, p_condition, p_from, p_brand, p_model, p_return, p_trade, p_region, p_desc)
+		values(gamja_seq.nextval, #{userNo}, #{userId}, #{pName}, #{pPrice}, #{pCondition}, #{pFrom}, #{pBrand}, #{pModel}, #{pReturn}, #{pTrade}, #{pRegion}, #{pDesc})
+	</insert>
+
+	<!-- 상품이미지 등록 -->
+	<insert id="imageRegi" parameterType="com.spring.TomLand.command.GamjaImgVO">
+		insert into gamjaimg(ino, gno, upload_path, file_loca, file_name, file_realName)
+		values(gamjaimg_seq.nextval, #{gno}, #{uploadPath}, #{fileLoca}, #{fileName}, #{fileRealName})
+	</insert>
+	
+	<!-- 게시글 총 개수 구하기 -->
+	<select id="getTotal" resultType="int">
+		select count(*) from gamja
+		<include refid="search" />
+	</select>
+	
+	<!-- 게시글 전체 가져오기 -->
+	<select id="getList" resultMap="GamjaMap">
+			select * from(
+				select rownum as rn, tbl.* from(
+					select * from gamja <include refid="search" />
+					order by gno desc)
+					tbl)
+				<![CDATA[
+				where rn > (#{pageNum} -1) * #{cpp}
+				and rn <= #{pageNum} * #{cpp}]]> 
+	</select>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="getContent" resultType="gamjaall">
+		select * from gamja g
+			left join gamjaimg i
+			on g.gno = i.gno
+			where g.gno = #{gno}
+	</select>
+
+	<!-- 게시글 조회 수 카운트는 제외 -->
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete">
+		delete from gamja
+		where gno = #{gno}
+	</delete>
+	
+	<!-- 게시글 수정 -->
+	<update id="update">
+		<selectKey resultType="int" keyProperty="gno" order="AFTER">
+			select max(gno) from gamja
+		</selectKey>
+		update gamja
+		set p_name = #{pName}, p_price = #{pPrice}, p_condition = #{pCondition}, p_from = #{pFrom}, p_brand = #{pBrand}, p_model = #{pModel}, p_return = #{pReturn}, p_trade = #{pTrade}, p_region = #{pRegion}, p_desc = #{pDesc}
+		where gno = #{gno}
+	</update>
+	
+	<!-- 상품 이미지 업데이트 -->
+	<update id="imageUpdate" parameterType="com.spring.TomLand.command.GamjaImgVO">
+		update gamjaimg
+		set upload_path = #{uploadPath}, file_loca = #{fileLoca}, file_name = #{fileName}, file_realName = #{fileRealName}
+		where gno = #{gno}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+</mapper>

@@ -24,7 +24,7 @@
 							</tr>
 							<tr>
 								<td class="t-title">제목:</td>
-								<td><input type="text" class="form-control" name="title"
+								<td><input type="text" class="form-control" name="title" id="title"
 									aria-describedby="sizing-addon2"></td>
 							</tr>
 							<tr>
@@ -53,6 +53,10 @@
 
 	//글 등록 버튼
 	$('#registBtn').click(function() {
+		if($('#title').val().trim() == ''){
+			alert('제목 입력은 필수 입니다.');
+			return;
+		}
 		
 		if(confirm('등록 하시겠습니까?') == true){
 			$('#formObj').submit();

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.TomLand.reply.mapper.IReplyMapper">
+
+	<!-- 동적 SQL 쿼리 -->
+	
+	<!-- ResultMap : mybits-config.xml 에 셋팅함 / typeAlias type="com.spring.TomLand.command.ReplyVO"
+			alias="reply"  / -->
+	<resultMap type="reply" id="replyMap">
+	</resultMap>
+	
+	<!-- 댓글 등록 -->
+	<insert id="replyRegist">
+		insert into freereply
+		(rno, bno, reply, reply_id, reply_pw, reply_uploadPath, reply_fileLoca, reply_fileName, reply_fileRealName)
+		values
+		(freereply_seq.nextval, #{bno}, #{reply}, #{replyId}, #{replyPw}, #{replyUploadPath}, #{replyFileLoca}, #{replyFileName}, #{replyFileRealName})	
+	</insert>
+
+	<!-- 댓글 조회 -->
+	<select id="getList" resultMap="replyMap">
+		select * from(
+			select rownum as rn, tbl.* from(
+				select * from freereply
+				where bno = #{bno}
+				order by rno desc
+				) tbl
+			)
+			<![CDATA[
+			where rn > (#{paging.pageNum} -1) * #{paging.cpp}
+			and rn <= #{paging.pageNum} * #{paging.cpp}
+			]]>
+	</select>
+
+	<!-- 총 댓글 수 조회 -->
+	<select id="getTotal" resultType="int">
+		select count(*) from freereply
+		where bno = #{bno}
+	</select>
+
+	<!-- 회원 정보 조회 -->
+	<select id="selectOne" resultMap="replyMap">
+		select * from freereply where reply_id = #{replyId}
+	</select>
+	
+	<!-- 댓글 업데이트 -->
+	<update id="update">
+		update freereply
+		set reply = #{reply},
+		update_date = sysdate
+		where rno = #{rno}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete">
+		delete from freereply where rno = #{rno}
+	</delete>
+
+</mapper>
