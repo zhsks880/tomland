@@ -29,7 +29,9 @@
 							</tr>
 							<tr>
 								<td class="t-content">내용:</td>
-								<td><textarea class="form-control" rows="10" name="content"></textarea>
+								<td>
+								<textarea class="form-control" id="textInput" rows="10" name="content"></textarea>
+								<div style="color: tomato; font-size: 13px;" id="textareaCnt">글자수제한(0 / 900)</div>
 								</td>
 							</tr>
 						</tbody>
@@ -70,4 +72,18 @@
 	$('#listBtn').click(function() {
 		location.href= '${pageContext.request.contextPath}/board/boardList';
 	});// end listBtn
+	
+	//Start JQuery
+	$(function () {
+		//textarea 글자수 제한
+		$('#textInput').on('keyup', function () {
+			$('#textareaCnt').html("글자수제한("+$(this).val().length+" / 900)");
+			if($(this).val().length > 900){
+				$(this).val($(this).val().substring(0, 900));
+				$('#textareaCnt').html("글자수제한(900 / 900)");
+			}
+		}); // end textarea 글자수 제한
+		
+		
+	}); //end jQuery
 </script>

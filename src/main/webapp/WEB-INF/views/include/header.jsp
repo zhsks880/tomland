@@ -71,11 +71,11 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="<c:url value='/' />" >Home</a></li>
-          <li><a class="nav-link scrollto" href="#features">Intro</a></li>
-          <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
+          <li><a class="nav-link scrollto" href="<c:url value='/#features' />">Intro</a></li>
+          <li><a class="nav-link scrollto" href="<c:url value='/#gallery' />">Gallery</a></li>
 <!--           <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li> -->
-          <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="<c:url value='/#faq' />">F.A.Q</a></li>
+          <li><a class="nav-link scrollto" href="<c:url value='/#contact' />">Contact</a></li>
           <li class="dropdown"><a href="#"><span>Tom`s Service</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="<c:url value='/board/boardList' /> ">자유게시판</a></li>

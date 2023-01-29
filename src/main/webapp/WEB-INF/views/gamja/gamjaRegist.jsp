@@ -121,6 +121,7 @@
 						
 						<span>●상품상세설명</span>
 						<textarea class="form-control" id="productDesc" name="pDesc" rows="5" name="content" style="margin-bottom: 10px;"></textarea>
+						<div style="color: tomato; font-size: 13px;" id="textareaCnt">글자수제한(0 / 900)</div>
               			<input type="hidden" name="userNo" value="${login.userNo}">
               			<input type="hidden" name="userId" value="${login.userId}">
 						
@@ -310,42 +311,21 @@
 				return false;
 			}
 		});
-		
-/* 		// # 가격 입력 숫자 및 콤마만
-		//NullCheck
-		function isEmpty(value) {
-			if(value.length == 0 || value == null){
-				return true;
-			} else {
-				return false;
-			}
-		}
-			// Number check
-			function isNumeric(value) {
-				let regExp = /^[0-9]+$/g;
-				return regExp.test(value);
-			}
 			
-			$('#productPrice').on('focus', function() {
-				let val = $('#productPrice').val();
-				if(!isEmpty(val)){
-					val = val.replace(/,/g,'');
-					$('#productPrice').val(val);
-				}
-			});
-			
-			$('#productPrice').on('blur', function() {
-				let val = $('#productPrice').val();
-				if(!isEmpty(val) && isNumeric(val)){
-					val = currencyFormatter(val);
-					$('#productPrice').val(val);
-				}
-			}); // end 가격 입력 숫자 및 콤마 */
-	
 	// # 취소 버튼
 	$('#cancleBtn').click(function() {
 		window.history.back();
 	});// end cancleBtn
+	
+	//textarea 글자수 제한
+	$('#productDesc').on('keyup', function () {
+		$('#textareaCnt').html("글자수제한("+$(this).val().length+" / 900)");
+		if($(this).val().length > 900){
+			$(this).val($(this).val().substring(0, 900));
+			$('#textareaCnt').html("글자수제한(900 / 900)");
+		}
+	}); // end textarea 글자수 제한
+	
 	
 	
 	}); // end JQuery

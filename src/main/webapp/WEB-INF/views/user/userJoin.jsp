@@ -197,7 +197,10 @@
 			}
 		}).open();
 	} // end 카카오주소찾기
-
+	
+	// #최종 점검
+	let chk1 = false, chk2 = false, chk3 = false;
+	
 	// # 정규식 검사
 	let id = document.getElementById("userId");
 	id.onblur = function () {
@@ -214,8 +217,10 @@
 		let regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 		if (regex.test(document.getElementById("userPw").value)) {
 			document.getElementById("msgPw").innerHTML = "사용가능합니다.";
+			chk1 = true;
 		} else {
 			document.getElementById("msgPw").innerHTML = "최소 8 자, 하나 이상의 문자, 하나의 숫자 및 하나의 특수 문자를 입력하세요.";
+			chk1 = false;
 		}
 	} // end 비번 정규식
 
@@ -224,8 +229,10 @@
 		let regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 		if (document.getElementById("pwConfirm").value == document.getElementById("userPw").value) {
 			document.getElementById("msgPwchk").innerHTML = "비밀번호가 일치 합니다.";
+			chk2 = true;
 		} else {
 			document.getElementById("msgPwchk").innerHTML = "비밀번호가 일치하지 않습니다.";
+			chk2 = false;
 		}
 	} // end 비번 확인 정규식
 
@@ -234,8 +241,10 @@
 		let regex = /^[가-힣]{2,4}$/;
 		if (regex.test(document.getElementById("userName").value)) {
 			document.getElementById("msgName").innerHTML = "사용 가능 합니다.";
+			chk3 = true;
 		} else {
 			document.getElementById("msgName").innerHTML = "한글 최소 2~4글자 까지 가능합니다.";
+			chk3 = false;
 		}
 	} // end 이름 확인 정규식
 
@@ -313,6 +322,14 @@
 			}
 			if ($('#fileImg').attr('src') === ''){
 				alert('프로필 사진 등록은 필수 입니다.');
+				return;
+			}
+			if (!chk1 && chk2){
+				alert('비밀번호&비밀번호 확인을 확인해주세요.');
+				return;
+			}
+			if (!chk3){
+				alert('이름란을 확인해 주세요.');
 				return;
 			}
 			if(confirm('회원 가입 하시겠습니까?') == true){

@@ -31,6 +31,7 @@
             </div>
             <div style="width: 100%;">
               <textarea name="content" id="content" rows="2" style="width: 100%;" class="form-control" placeholder="오늘의생각을 적어주세요"></textarea>
+              <div style="color: tomato; font-size: 13px;" id="textareaCnt">글자수제한(0 / 500)</div>
               <div class="reply-group">
                 <div class="filebox user2" style="margin-top: 5px;">
                   <label for="file">이미지업로드</label>
@@ -82,7 +83,7 @@
 						 <!-- <a href="##"><i class="glyphicon glyphicon-thumbs-up"></i>좋아요</a> -->
 							<form>
 							<a href="#" id="comment"><i class="bi bi-chat-right-dots"></i>댓글달기</a>
-							<input type="text" id="snsReply" name="snsReply">
+							<input type="text" id="snsReply" name="snsReply" maxlength="100">
 							</form> 
 						</div>
 						
@@ -289,7 +290,7 @@ $(function() {
 							snsStr +=
 								`<div class="link-inner">
 								<img src="${pageContext.request.contextPath}/snsReply/display/`+ snsReplyList[i].snsWriter +`" width="20%">
-								<input value="` + snsReplyList[i].snsReply + `" class="form-control" style="background: #f8f8f8;" readonly>
+								<textarea class="form-control" rows="2" style="padding: 3px; font-size: 14px; background: #f8f8f8;" readonly>` + snsReplyList[i].snsReply + `</textarea>
 								</div>`;
 							}; // for문 종료
 							$('#snsReplyList').html(snsStr);
@@ -345,7 +346,7 @@ $(function() {
 							`<div class="link-inner">
 							<img src="${pageContext.request.contextPath}/snsReply/display/`+ snsReplyList[i].snsWriter +`" style="width: 15%; height: 15%;">
 							<input type="hidden" class="snsWriter" value="`+ snsReplyList[i].snsWriter +`">
-							<input value="` + snsReplyList[i].snsReply + `" class="form-control" style="background: #f8f8f8;" readonly>
+							<textarea class="form-control" rows="2" style="padding: 3px; font-size: 14px; background: #f8f8f8;" readonly>` + snsReplyList[i].snsReply + `</textarea>
 							<input type="hidden" class="rno" name="rno" value="` + snsReplyList[i].rno +`">
 							<button type="button" class="right btn" id="replyDelBtn" style="background-color: pink; color: white;">삭제</button>
 							</div>`;
@@ -605,7 +606,22 @@ $(function() {
 			
 		}
 	}); // end 무한 스크롤
-
+	
+	//textarea 글자수 제한
+	$('#content').on('keyup', function () {
+		$('#textareaCnt').html("글자수제한("+$(this).val().length+" / 500)");
+		if($(this).val().length > 500){
+			$(this).val($(this).val().substring(0, 500));
+			$('#textareaCnt').html("글자수제한(500 / 500)");
+		}
+	}); // end textarea 글자수 제한
+	
+	$('#snsReply').on('keyup', function () {
+		if($(this).val().length > 100){
+			alert('댓글은 최대 100글자까지만 가능합니다 :D');
+			$('#snsReply').focus();
+		}
+	});
 	
 	
 }); // end JQuery

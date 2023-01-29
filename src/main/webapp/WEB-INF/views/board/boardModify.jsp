@@ -41,8 +41,9 @@
 
             <div class="conform" style="margin-top: 30px;">
               <input value="내용: " style="border: 0px; width: 10%; background-color: white;" disabled>
-              <textarea type="text" style="width: 90%; white-space: pre-line;" class="form-control" rows="10" name="content">${article.content}</textarea>
+              <textarea type="text" style="width: 90%; white-space: pre-line;" class="form-control" rows="10" name="content" id="textInput">${article.content}</textarea>
             </div>
+            <div style="color: tomato; font-size: 13px;" id="textareaCnt">글자수제한(0 / 900)</div>
             <br>
             <div class="writefoot">
               <button type="button" id="modBtn" class="btn btn-primary">수정</button>
@@ -74,5 +75,19 @@
 	$('#listBtn').click(function() {
 		window.history.back();
 	});// end listBtn
+	
+	//Start JQuery
+	$(function () {
+		//textarea 글자수 제한
+		$('#textInput').on('keyup', function () {
+			$('#textareaCnt').html("글자수제한("+$(this).val().length+" / 900)");
+			if($(this).val().length > 900){
+				$(this).val($(this).val().substring(0, 900));
+				$('#textareaCnt').html("글자수제한(900 / 900)");
+			}
+		});
+		
+		
+	}); //end jQuery
 
 </script>
