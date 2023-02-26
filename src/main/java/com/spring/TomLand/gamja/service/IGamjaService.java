@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.spring.TomLand.command.GamjaAllVO;
+import com.spring.TomLand.command.GamjaBoardVO;
 import com.spring.TomLand.command.GamjaImgVO;
 import com.spring.TomLand.command.GamjaVO;
 import com.spring.TomLand.command.PageVO;
@@ -37,4 +38,19 @@ public interface IGamjaService {
 	
 	//이미지 업데이트
 	public void imageUpdate(GamjaImgVO vo);
+	
+	//감자 리뷰 갯수
+	int getReivew(int gno);
+	
+	//QnA 갯수
+	int getQnaCnt(int gno);
+	
+	//QnA 가져오기
+	List<GamjaBoardVO> getQna(int gno);
+	
+	//QnA 문의 가져오기
+	List<GamjaVO> getOneQna(int gno);
+	
+	//QnA 문의랑 답변 가져오기
+	List<GamjaVO> getOneContent(int bno);
 }

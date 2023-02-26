@@ -13,8 +13,8 @@
 	<!-- 댓글 등록 -->
 	<insert id="insert">
 		insert into gamjareview
-		(bno, writer, content, upload_path, file_loca, file_name, file_realName, profile_uploadPath, profile_fileLoca, profile_fileName, profile_fileRealName)
-		values(gamjareview_seq.nextval, #{writer}, #{content}, #{uploadPath}, #{fileLoca}, #{fileName}, #{fileRealName}, #{profileUploadPath}, #{profileFileLoca}, #{profileFileName}, #{profileFileRealName})
+		(bno, writer, content, upload_path, file_loca, file_name, file_realName, profile_uploadPath, profile_fileLoca, profile_fileName, profile_fileRealName, gno)
+		values(gamjareview_seq.nextval, #{writer}, #{content}, #{uploadPath}, #{fileLoca}, #{fileName}, #{fileRealName}, #{profileUploadPath}, #{profileFileLoca}, #{profileFileName}, #{profileFileRealName}, #{gno})
 	</insert>
 
 	<!-- 글 목록 가져오기 -->
@@ -27,6 +27,7 @@
 				tbl)
 			where rn > (#{pageNum} -1) * #{cpp}
 			and rn <= #{pageNum} * #{cpp}
+			and gno = #{gno}
 		]]>
 	</select>
 

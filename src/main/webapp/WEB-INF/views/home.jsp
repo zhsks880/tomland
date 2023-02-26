@@ -466,23 +466,19 @@
 
 				<!-- Send E-mail 양식 -->
 				<div class="col-lg-6">
-					<form action="forms/contact.php" method="post" role="form"
-						class="php-email-form" data-aos="fade-up">
+				
+					<form action="<c:url value='/util/contact' />" method="post" role="form" id="contactForm" class="php-email-form" data-aos="fade-up">
 						<div class="form-group">
-							<input placeholder="Your Name" type="text" name="name"
-								class="form-control" id="name" required>
+							<input placeholder="Your Name" type="text" name="name" class="form-control" id="name" required>
 						</div>
 						<div class="form-group mt-3">
-							<input placeholder="Your Email" type="email" class="form-control"
-								name="email" id="email" required>
+							<input placeholder="Your Email" type="email" class="form-control" name="email" id="email" required>
 						</div>
 						<div class="form-group mt-3">
-							<input placeholder="Subject" type="text" class="form-control"
-								name="subject" id="subject" required>
+							<input placeholder="Subject" type="text" class="form-control" name="subject" id="subject" required>
 						</div>
 						<div class="form-group mt-3">
-							<textarea placeholder="Message" class="form-control"
-								name="message" rows="5" required></textarea>
+							<textarea placeholder="Message" class="form-control" name="message" id="message" rows="5" required></textarea>
 						</div>
 						<div class="my-3">
 							<div class="loading">Loading</div>
@@ -491,9 +487,10 @@
 								you!</div>
 						</div>
 						<div class="text-center">
-							<button type="submit">Send E-mail</button>
+							<button type="submit" id="submitBtn">Send E-mail</button>
 						</div>
 					</form>
+					
 				</div>
 				<!-- end Send E-mail 양식 -->
 
@@ -520,4 +517,55 @@ AOS.init();
 	 if(msg === 'userDel'){
 		 alert('회원탈퇴 처리 되었습니다.');
 	 }
+	 if(msg === 'sendSuccess'){
+		 alert('메일이 발송 되었습니다.');
+	 }
+//JQuery Start
+$(function () {
+	
+	$('#submitBtn').click(function () {
+		
+		const name = $('#name').val();
+		const email = $('#email').val();
+		const subject = $('#subject').val();
+		const message = $('#message').val();
+		
+		if(name === ''){
+			alert('이름을 입력해주세요.');
+			return;
+		};
+		if(email === ''){
+			alert('이메일을 입력해주세요.');
+			return;
+		};
+		if(email.length > 50){
+			alert('이메일주소는 50글자 제한입니다.');
+			return;
+		};
+		if(subject === ''){
+			alert('제목을 입력해주세요.');
+			return;
+		};
+		if(subject.length > 50){
+			alert('제목은 50글자 제한입니다.');
+			return;
+		};
+		if(message === ''){
+			alert('내용을 입력해주세요.');
+			return;
+		}
+		if(message.length > 100){
+			alert('내용은 100글자 제한입니다.');
+			return;
+		};
+		
+		if(confirm('문의 메일 보내시겠습니까?') == true){
+			$('#submitBtn').submit();
+		} else {
+			return false;
+		}
+		
+	});// end submitBtn
+	
+});//end JQuery
  </script>

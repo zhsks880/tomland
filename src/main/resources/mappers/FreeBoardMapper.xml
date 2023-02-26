@@ -37,7 +37,7 @@
 			select rownum as rn, tbl.* from(
 				select b.* , (
 					select count(*) from freereply r where r.bno = b.bno)
-				as reply_count from freeboard b <include refid="search" /> order by bno desc)
+				as reply_count from freeboard b <include refid="search" /> order by b.bno desc)
 			tbl)
 		<![CDATA[where rn > (#{pageNum}-1) * #{cpp} and rn <= #{pageNum} * #{cpp}]]>
 	</select>

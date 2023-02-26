@@ -5,6 +5,7 @@ import java.util.List;
 import com.spring.TomLand.command.GamjaReviewVO;
 import com.spring.TomLand.command.PageVO;
 
+
 public interface IGamjaReviewMapper {
 	
 	//글 등록

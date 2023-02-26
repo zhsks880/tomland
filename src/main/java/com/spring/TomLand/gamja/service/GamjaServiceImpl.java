@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.TomLand.command.GamjaAllVO;
+import com.spring.TomLand.command.GamjaBoardVO;
 import com.spring.TomLand.command.GamjaImgVO;
 import com.spring.TomLand.command.GamjaVO;
 import com.spring.TomLand.command.PageVO;
@@ -91,7 +92,30 @@ public class GamjaServiceImpl implements IGamjaService {
 	public void delete(int gno) {
 		mapper.delete(gno);
 	}
+	
+	@Override
+	public int getReivew(int gno) {
+		return mapper.getReivew(gno);
+	}
 
 
-
+	@Override
+	public List<GamjaBoardVO> getQna(int gno) {
+		return mapper.getQna(gno);
+	}
+	
+	@Override
+	public int getQnaCnt(int gno) {
+		return mapper.getQnaCnt(gno);
+	}
+	
+	@Override
+	public List<GamjaVO> getOneQna(int gno) {
+		return mapper.getOneQna(gno);
+	}
+	
+	@Override
+	public List<GamjaVO> getOneContent(int bno) {
+		return mapper.getOneContent(bno);
+	}
 }

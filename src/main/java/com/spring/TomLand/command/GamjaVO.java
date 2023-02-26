@@ -67,5 +67,4 @@ public class GamjaVO {
 	private String file3;
 	private String file4;
 	
-	
 }

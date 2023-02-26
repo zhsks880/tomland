@@ -96,9 +96,8 @@
 						data-toggle="tab" data-bs-target="#id1" href="#id1-tab"
 						id="id1-tab">상세정보</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab"
-						data-bs-target="#id2" href="#id2-tab" id="id2-tab">리뷰()</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab"
-						data-bs-target="#id3" href="#id3-tab" id="id3-tab">Q&A 20</a></li>
+						data-bs-target="#id2" href="#id2-tab" id="id2-tab">리뷰(${articleReview})</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" data-bs-target="#id3" href="#id3-tab" id="id3-tab">Q&A(${QnACnt})</a></li>
 				</ul>
 
 				<!-- 탭 안쪽 -->
@@ -119,7 +118,7 @@
 										<th>상품번호</th>
 										<td name="gno" class="gno">${article[0].gno}</td>
 										<th>상품상태</th>
-										<td name="pCondition">${article[0].PCondition}</td>
+										<td name="pCondition" style="border-right: 0px;">${article[0].PCondition}</td>
 									</tr>
 									<tr>
 										<th>제조사</th>
@@ -208,52 +207,92 @@
 										<button type="button" class="right btn" id="uploadBtn"
 											style="background-color: #5777ba; color: white;">리뷰등록</button>
 									</div>
+									<div style="color: tomato; font-size: 13px;" id="textareaCnt">글자수제한(0 / 300)</div>
 								</div>
 							</div>
 						</div>
 						<!--end 등록 폼 -->
 						<br>
-						<button type="button" class="btn-group btn-group-lg" id="showBtn"
-							style="background-color: #5777ba; color: white;">리뷰보기</button>
+
 						<!-- 보여주기 폼 -->
 						<div
-							class="col-lg-8 d-lg-flex flex-lg-column order-1 order-lg-2 regi"
+							class="col-lg-6 d-lg-flex flex-lg-column order-1 order-lg-2 regi"
 							id="contentDiv">
 							<!-- getJSON 시작 -->
 						</div>
-
+						
+						<button type="button" class="btn-group btn-group-lg" id="showBtn" style="background-color: #5777ba; color: white;">리뷰 더보기</button>
 					</div>
 					<!-- end id2 -->
 
 
 					<!-- id3 시작 -->
 					<div class="tab-pane fade" id="id3">
-						<table class="table table-hover">
-							<thead class="bg-thead">
-								<tr>
-									<th class="p_bno"></th>
-									<th class="p_Title">장바구니품목</th>
-									<th class="p_Regdate">상품정보</th>
-									<th class="p_Price">가격</th>
-									<th class="p_like">수량</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="p_bno"><input type="checkbox"></td>
-									<td class="p_Title"><a href=""><img src="#"
-											style="width: 150px; height: 150px;"></a></td>
-									<td class="p_Regdate">아이폰케이스 나노슬림</td>
-									<td class="p_Price">40,000원</td>
-									<td class="p_like">1개</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="pocket" style="text-align: right; margin-left: 10px;">
-							<span>상품금액: 30,000원 |</span> <span>총 금액: <strong>50,000원</strong></span>
-						</div>
-						<button type="button" class="btn btn-danger search-btn">삭제</button>
-						<button type="button" class="btn btn-primary search-btn">주문</button>
+					<!-- 아코디언적용 -->
+						    <div class="container">
+						        <!-- <button id="btn-all-close">문의글 모두 닫기</button> -->
+						        <br>
+						        <table class="table table-bordered table-striped table-hover">
+						
+						          <thead class="thead-light text-center" style="background-color: #5777ba; color: white;">
+						            <tr>
+						              <th>문의제목</th>
+						              <th>작성자</th>
+						              <th>작성일</th>
+						            </tr>
+						          </thead>
+						          <tbody class="text-center qnaTbody" id="qnaTbody">
+						          <c:forEach var="vo" items="${QnAList}">
+						          	<tr class="teamMatch">
+						              <td class="text-left" width="60%">
+						                <div class="panel-faq-container">
+						                  <p class="panel-faq-title">${vo.title} 
+						                  <c:if test="${vo.qnaReply != null}">&ensp;&ensp;
+											<small style="color: tomato">[답변완료]</small></c:if></p>
+						                  <div class="panel-faq-answer">
+						                    <p style="white-space: pre-line; text-align: left">${vo.content}
+						                    <hr>
+						                    <div class="user2" style="font-size: 14px;">
+						                    	<div style="color: tomato;">※판매자:<span style="color: black;"> ${vo.qnaWriter}</span></div>
+						                    	<div style="color: tomato;">답변등록일:<span style="color: black;"><fmt:formatDate value="${vo.qnaRegDate}" pattern="yy년MM월dd일" /></span></div>
+						          			</div>
+						          			<p style="color: tomato; font-size: 14px; text-align: left">→답변:
+						          			<span style="white-space: pre-line; font-size: 14px; color: black;">${vo.qnaReply}
+						          			</span></p>
+			
+						                    </p>
+						                    
+						                  </div>
+						                </div>
+						              </td>
+						              <td>${vo.writer}
+						              <br>
+						              	<input type="hidden" id="qnaBno" class="qnaBno" value="${vo.bno}">
+						              	<c:if test="${login.userId == article[0].userId && vo.qnaReply == null}" >
+						                <button type="button" style="border: 0px; color: white; background-color: #5777ba; border-radius: 5px; font-size: 13px;" id="qnaModBtn">답변하기</button>
+						                </c:if>
+						                <c:if test="${login.userId == vo.writer}" >
+						                <button type="button" style="border: 0px; color: white; background-color: tomato; border-radius: 5px; font-size: 13px;" id="qnaDelBtn">삭제하기</button>
+						                </c:if>
+						                
+						              </td>
+						              
+						              <td>
+						              <fmt:formatDate value="${vo.regDate}" pattern="yy년MM월dd일"/>
+						              </td>
+						              
+						            </tr>
+						          	
+						          </c:forEach>
+						            
+						
+						          </tbody>
+						        </table>
+						      </div>
+
+						<c:if test="${login.userId != article[0].userId}">
+						<button type="button" class="btn btn-primary search-btn" style="width: 15%; background-color: #edad53; float: right; border: 0px;" id="qnaBtn">판매자에게문의</button>
+						</c:if>
 					</div>
 					<!-- end id3 -->
 
@@ -268,13 +307,32 @@
 	</div>
 	<!-- end containser -->
 
-
-
-
 </section>
 <!-- End Hero -->
 
 <%@ include file="../include/footer.jsp"%>
+
+<!-- QnA 글쓰기 모달 -->
+	<div class="modal fade" id="gamjaQna" role="dialog">
+			<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-body row">
+						<div class="modal-inner">
+							<form action="<c:url value='/gamjaBoard/regist' />" id="qnaRegist" method="post">
+							<p>제목</p>
+							<input type="text" class="form-control" name="title" id="title">
+							<p>문의내용</p>
+							<textarea class="form-control" id="textInput1" rows="5" name="content"></textarea>
+							<div style="color: tomato; font-size: 13px;" id="textareaCnt1">글자수제한(0 / 300)</div>
+							<button type="button" class="btn btn-primary search-btn" style="width: 25%; background-color: #edad53; float: right; border: 0px;" id="regBtn">문의등록하기</button>
+							<input type="hidden" name="gno" value="${article[0].gno}">
+							<input type="hidden" name="writer" value="${login.userId}">
+							</form> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 <script>
 
@@ -318,11 +376,11 @@ function timeStamp(millis) {
 	return time;
 }; // end timeStamp
 
-// # 페이지 진입 시 초기화 함수
+// # 리뷰페이지 진입 시 초기화 함수
 let str = '';
-let page1 = 1;
-let isFinish = false;
+let page = 1;
 let gno = '${article[0].gno}';
+getList(1, true);	//페이지 진입 시 댓글 리스트를 불러오게 함
 // # getList 함수
 function getList(page, reset) {
 
@@ -331,10 +389,21 @@ function getList(page, reset) {
 	}
 	
 	$.getJSON(
-		'<c:url value="/review/getList?pageNum=' + page1 + '" />',
+		'<c:url value="/review/getList/" />' + gno + '/' + page,
 		function(list) {
 			
-			if(list.length === 0) isFinish = true;
+			console.log('리스트 뭔지 보자' + list.length);
+			//댓글을 누적하고 있는 strAdd 변수를 초기화 해서 화면이 리셋된거처럼 보여주기
+			if(reset === true){
+				str = '';
+			}
+			
+			//페이지번호 * 데이터 수보다 전체 댓글개수가 작으면 더보기 버튼 없애기 
+			if(list.length <= 0){
+				$('#showBtn').css('display', 'none');
+			} else {
+				$('#showBtn').css('display', 'block');
+			}
 			
 			for(let i=0; i<list.length; i++){
 				str +=
@@ -410,6 +479,10 @@ $(function () {
 	
 	// # 리뷰 등록 버튼
 	$('#uploadBtn').click(function () {
+		const userId = '${login.userId}';
+		if(userId === ''){
+			alert('로그인 해야 이용 가능한 서비스입니다.');
+			return; }
 		
 		if(confirm('리뷰를 등록 하시겠습니까?') == true){
 			regist();
@@ -418,9 +491,9 @@ $(function () {
 		}
 	});// end uploadBtn
 	
-	// # 리뷰 보기 버튼
+	// # 리뷰 더보기 버튼
 	$('#showBtn').click(function(){
-		getList();
+		getList(++page, false);
 	}); // end showBtn
 	
 	
@@ -448,7 +521,9 @@ $(function () {
 		
 		formData.append('file', data[0].files[0]);
 		const content = $('#content').val();
+		let gno = '${article[0].gno}';
 		formData.append('content', content);
+		formData.append('gno', gno);
 		
 		$.ajax({
 			type : 'post',
@@ -459,6 +534,7 @@ $(function () {
 			success : function (result) {
 				if(result === 'regSuccess'){
 					alert('리뷰작성이 완료 되었습니다.');
+					location.reload();
 					$('#file').val('');
 					$('#content').val('');
 					$('.fileDiv').css('display', 'none');
@@ -589,6 +665,123 @@ $(function () {
 		}
 		
 	}); // end 내 물건등록버튼
+	
+	//textarea 글자수 제한
+	$('#content').on('keyup', function () {
+		$('#textareaCnt').html("글자수제한("+$(this).val().length+" / 300)");
+		if($(this).val().length > 300){
+			$(this).val($(this).val().substring(0, 300));
+			$('#textareaCnt').html("글자수제한(300 / 300)");
+		}
+	}); // end textarea 글자수 제한
+	
+	//판매자에게문의 모달
+	$('#qnaBtn').click(function () {
+		const userId = '${login.userId}';
+		if(userId === ''){
+			alert('로그인 해야 이용 가능한 서비스입니다.');
+		} else {
+			$('#gamjaQna').modal('show');
+		}
+	});// end qnaBtn
+	
+	//QnA 등록
+	$('#regBtn').click(function () {
+		if(confirm('문의를 등록하겠습니까?') == true){
+			$('#qnaRegist').submit();
+		} else {
+			return false;
+		}
+	});// end qnaBtn
+	
+	//QnA 리스트
+	$('#id3-tab').click(function () {
+		const gno = '${article[0].gno}';
+		
+	});// end id3-tab
+	
+	//QnA 글 보기 모달
+	$('#qnaTitle').click(function () {
+		$('#qnaList').modal('show');
+	});// end qnaTitle
+	
+	//QnA 아코디언
+	// panel-faq-container
+ 	 const panelFaqContainer = document.querySelectorAll(".panel-faq-container"); // NodeList 객체
+  
+	  // panel-faq-answer
+	  let panelFaqAnswer = document.querySelectorAll(".panel-faq-answer");
+	
+	  // 반복문 순회하면서 해당 FAQ제목 클릭시 콜백 처리
+	  for( let i=0; i < panelFaqContainer.length; i++ ) {
+	    panelFaqContainer[i].addEventListener('click', function() { // 클릭시 처리할 일
+	      // FAQ 제목 클릭시 -> 본문이 보이게끔 -> active 클래스 추가
+	      panelFaqAnswer[i].classList.toggle('look');
+	    });
+	  };
+	
+	
+	//판매자에게답변 모달
+	$('#qnaTbody').on('click', '.teamMatch #qnaModBtn', function () {
+		let bno = $(this).siblings('#qnaBno').val();
+		window.open("${pageContext.request.contextPath}/gamja/pop/" + bno, "_blank", "width=600, height=600");
+	}); //end qnaTbody
+	
+	
+	//답변 등록
+	const msg = '${msg}';
+	if(msg === 'answer'){
+		alert('답변이 등록되었습니다.');
+	}
+	
+	//textarea 글자수 제한
+	$('#textInput1').on('keyup', function () {
+		$('#textareaCnt1').html("글자수제한("+$(this).val().length+" / 300)");
+		if($(this).val().length > 300){
+			$(this).val($(this).val().substring(0, 300));
+			$('#textareaCnt1').html("글자수제한(300 / 300)");
+		}
+	}); // end textarea 글자수 제한
+	
+	//QnA 제목 글자수 제한
+	$('#title').on('keyup', function () {
+		if($(this).val().length > 100){
+			alert('글자는 100글자 까지만 가능합니다.');
+			$('#title').val('');
+		}
+	}); // end 제목 글자수 제한
+	
+	//QnA 게시글 삭제
+	$('#qnaTbody').on('click', '.teamMatch #qnaDelBtn', function () {
+		
+		if(confirm('삭제 하시겠습니까?') == true){
+			let gno = '${article[0].gno}';
+			let bno = $(this).siblings('#qnaBno').val();
+			
+			$.ajax({
+				type : 'post',
+				url : '<c:url value="/gamjaBoard/delete" />',
+				data : bno,
+				dateType : 'text',
+				contentType : 'application/json',
+				success : function(result) {
+					if(result === 'delSuccess'){
+						alert('정상 삭제 되었습니다.');
+						location.href="<c:url value='/gamja/gamjaContent/' />" + gno;
+					} else {
+						alert('삭제 실패');
+					}	
+				},
+				error : function() {
+					alert('관리자에게 문의');
+				}
+			});//end ajax
+		} else {
+			return false;
+		}
+		
+	});
+	
 	
 }); //end JQuery
 

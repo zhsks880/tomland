@@ -45,5 +45,7 @@ public class FreeBoardVO {
 	
 	//게시글에 대한 댓글 개수 받을 변수
 	private int replyCount;
-
+	
+	//게시글 번호받을 변수
+	private int rn;
 }

@@ -1,6 +1,7 @@
 package com.spring.TomLand.command;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,8 @@ public class GamjaAllVO {
 	private String fileName;
 	private String fileRealName;
 	
+	//리뷰 카운트 추가
+	private int reviewCnt;
 	
-	
+
 }

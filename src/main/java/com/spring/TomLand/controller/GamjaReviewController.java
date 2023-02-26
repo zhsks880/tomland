@@ -34,7 +34,7 @@ public class GamjaReviewController {
 	
 	//review 댓글 등록
 	@PostMapping("/insert")
-	public String insert(MultipartFile file, String content, HttpSession session) {
+	public String insert(MultipartFile file, String content, int gno, HttpSession session) {
 		
 		String writer = ((UserVO) session.getAttribute("login")).getUserId();
 		String profileFileLoca = ((UserVO) session.getAttribute("login")).getUserFileLoca();
@@ -48,7 +48,8 @@ public class GamjaReviewController {
 		reviewVo.setProfileFileLoca(profileFileLoca);
 		reviewVo.setProfileUploadPath(profileUploadPath);
 		reviewVo.setProfileFileRealName(profileFileRealName);
-		reviewVo.setProfileFileName(profileFileName);;
+		reviewVo.setProfileFileName(profileFileName);
+		reviewVo.setGno(gno);
 		
 		service.insert(reviewVo, file);
 
@@ -56,7 +57,7 @@ public class GamjaReviewController {
 	}
 	
 	//review 댓글 목록
-	@GetMapping("/getList")
+	@GetMapping("/getList/{gno}/{pageNum}")
 	public List<GamjaReviewVO> getList(PageVO paging){
 		paging.setCpp(3);
 		

@@ -68,6 +68,7 @@
               
               <button class="btn" style="background: #2b8030; color: white; width: 20%; margin-left: 5px;" id="replyRegist">댓글등록</button>
             </div>
+            <div style="color: tomato; font-size: 13px;" id="textareaCnt">글자수제한(0 / 300)</div>
            </form>
           </div>
           </c:if>
@@ -132,6 +133,15 @@
 	if(msg === 'modify'){
 		alert('글이 수정되었습니다.');
 	}
+	
+	//textarea 글자수 제한
+	$('#reply').on('keyup', function () {
+		$('#textareaCnt').html("글자수제한("+$(this).val().length+" / 300)");
+		if($(this).val().length > 300){
+			$(this).val($(this).val().substring(0, 300));
+			$('#textareaCnt').html("글자수제한(300 / 300)");
+		}
+	}); // end textarea 글자수 제한
 	
 	// 댓글 등록 : replyRegist
 	$('#replyRegist').click(function() {
@@ -271,6 +281,7 @@
 
 		}); // end replyList
 		
+
 		// # 댓글 수정 해서 보내기
 		$('#replyList').on('click', '.replyMod', function(e) {
 			
@@ -283,7 +294,10 @@
 					alert('내용을 입력해주세요.');
 					return;
 				};
-				
+				if(reply.length > 300){
+					alert('300글자 제한입니다.');
+					return;
+				};
 				const replyMod = {
 					'reply' : reply,
 					'replyId' : replyId,

@@ -14,6 +14,9 @@
 			alias="gamja" /> -->
 	<resultMap type="gamja" id="GamjaMap">
 	</resultMap>
+	<resultMap type="com.spring.TomLand.command.GamjaBoardVO" id="GamjaBoardMap">
+	</resultMap>
+	
 
 	<!-- 글 등록 -->
 	<insert id="gamjaRegist">
@@ -53,6 +56,8 @@
 		select * from gamja g
 			left join gamjaimg i
 			on g.gno = i.gno
+			left join gamjaboard b
+			on i.gno = b.gno
 			where g.gno = #{gno}
 	</select>
 
@@ -81,10 +86,39 @@
 		where gno = #{gno}
 	</update>
 	
+	<!-- review 갯수 구하기 -->
+	<select id="getReivew" resultType="int">
+		select count(*) from gamjareview
+		where gno = #{gno}
+	</select>
 	
+	<!-- QnA 리스트 구하기 -->
+	<select id="getQna" resultMap="GamjaBoardMap">
+		select * from gamjaboard
+		where gno = #{gno}
+		order by bno desc
+	</select>
 	
+	<!-- QnA 갯수 가져오기 -->
+	<select id="getQnaCnt" resultType="int">
+		select count(*) from gamjaboard
+		where gno = #{gno}
+	</select>
 	
+	<!-- QnA 답글까지 가져오기 -->
+	<select id="getOneQna" resultMap="GamjaBoardMap">
+		select * from gamjaboard g
+		left join gamjaboardreply i
+		on g.bno = i.qna_bno
+		where g.gno = #{gno}
+		order by g.bno desc
+	</select>
 	
+	<!-- QnA 글 한개 가져오기 -->
+	<select id="getOneContent" resultMap="GamjaBoardMap">
+		select * from gamjaboard
+		where bno = #{bno}
+	</select>
 	
 	
 </mapper>

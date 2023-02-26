@@ -1701,7 +1701,13 @@ div .userform {
 .marketProduct tbody tr td{
   border: 1px solid #5777ba;
   padding: 10px 10px;
-  width: 30%;
+}
+
+.marketProduct tbody td{
+	width: 40%;
+}
+.marketProduct table {
+	width: 100%;
 }
 
 .marketProduct tbody tr td:nth-child(4){
@@ -1746,6 +1752,29 @@ div .userform {
 
 #orderForm #useremail1 {
   width: 40%;
+}
+
+/*--------------------------------------------------------------
+# 감자마켓 QnA
+--------------------------------------------------------------*/
+.panel-faq-container {
+  margin-bottom: -16px;
+}
+.panel-faq-title {
+    color: #5777ba;
+  cursor: pointer;
+}
+.panel-faq-answer {
+  height: 0;
+  overflow: hidden;
+  /* 변화가 시작되는 쪽에다가 transition 적용해준다 0 -> 300px 
+  왜? 닫기 버튼을 누를 때 변화가 티남 */
+  transition: all 1s;
+}
+
+.look{
+	diplay: block;
+	height: auto;
 }
 
 

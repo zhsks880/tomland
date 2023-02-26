@@ -165,6 +165,13 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.13.3</version>
 		</dependency>
+		
+		<!-- 메일보내기 415에러 때문에 추가함 -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.4.2</version>
+		</dependency>
 
 		<!-- spring-security-web -->
 		<dependency>

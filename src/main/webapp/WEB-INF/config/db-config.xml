@@ -53,6 +53,8 @@
 	<mybatis-spring:scan base-package="com.spring.TomLand.gamja.mapper"/>
 	<mybatis-spring:scan base-package="com.spring.TomLand.gamjareview.mapper"/>
 	<mybatis-spring:scan base-package="com.spring.TomLand.cart.mapper"/>
+	<mybatis-spring:scan base-package="com.spring.TomLand.gamjaboard.mapper"/>
+	<mybatis-spring:scan base-package="com.spring.TomLand.gamjareply.mapper"/>
 
 	
 	<!-- multipart exception : MultipartResolver 에러시 이동 할 것 설정 -->

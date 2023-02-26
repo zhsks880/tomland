@@ -26,4 +26,7 @@ public class PageVO {
 	//사용자 만 갯수 세기 위해 추가
 	private String userId;
 	
+	//gamjareview 를 위한 변수선언
+	private int gno;
+	
 }

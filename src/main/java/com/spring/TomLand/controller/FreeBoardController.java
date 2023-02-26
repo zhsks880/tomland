@@ -32,6 +32,7 @@ public class FreeBoardController {
 		
 		model.addAttribute("boardList", service.getList(vo));
 		model.addAttribute("pc", service.getPc(vo));
+		log.info("자게 뭐오니?" + service.getList(vo));
 	}
 	
 	//글쓰기 이동

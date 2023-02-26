@@ -32,7 +32,7 @@
 				<table class="table table-hover">
 					<thead class="bg-thead">
 						<tr>
-							<th class="b_bno">No.</th>
+							<th class="b_rn">No.</th>
 							<th class="b_Title">제목</th>
 							<th class="b_Writer">작성자</th>
 							<th class="b_Regdate">작성일</th>
@@ -44,7 +44,7 @@
 					<tbody>
 						<c:forEach var="vo" items="${boardList}">
 						<tr>
-							<td class="b_bno">${vo.bno}</td>
+							<td class="b_bno">${vo.rn}</td>
 							<td class="b_Title"><a href="<c:url value='/board/boardContent/${vo.bno}${pc.makeURI(pc.paging.pageNum)}' />">${vo.title}</a>
 								<!-- reply count 하고나서 열기 -->
 								<c:if test="${vo.replyCount ne 0}">&ensp;

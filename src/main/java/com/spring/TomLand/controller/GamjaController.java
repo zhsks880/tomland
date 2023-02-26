@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.TomLand.command.GamjaBoardVO;
 import com.spring.TomLand.command.GamjaImgVO;
 import com.spring.TomLand.command.GamjaVO;
 import com.spring.TomLand.command.PageVO;
@@ -39,7 +40,6 @@ public class GamjaController {
 	
 	@Autowired
 	private IGamjaService service;
-	
 	
 	//감자마켓 이동
 	@GetMapping("/gamjaList")
@@ -105,7 +105,13 @@ public class GamjaController {
 	public String getContent(@PathVariable int gno, Model model) {
 		
 		model.addAttribute("article", service.getContent(gno));
+		model.addAttribute("articleReview", service.getReivew(gno));
+	
+		model.addAttribute("QnACnt", service.getQnaCnt(gno));
+		model.addAttribute("QnAList", service.getOneQna(gno));
 		
+		log.info("써비스에서 오는 문의당답글?" + service.getOneQna(gno));
+		log.info("써비스에서 오는 문의글!" + service.getQna(gno));
 		return "gamja/gamjaContent";
 	}
 	
@@ -182,6 +188,15 @@ public class GamjaController {
 		return "redirect:/gamja/gamjaList";
 	}
 	
+	//QnA 글
+	@GetMapping("/pop/{bno}")
+	public String pop(@PathVariable int bno, Model model) {
+		
+		model.addAttribute("qnaAnswer", service.getOneContent(bno));
+		log.info("qnaAnswer: " + service.getOneContent(bno));
+
+		return "gamjareply/gamjaPop";
+	}
 	
 	
 }

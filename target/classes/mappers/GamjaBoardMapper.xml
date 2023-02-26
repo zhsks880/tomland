@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.TomLand.gamjaboard.mapper.IGamjaBoardMapper">
+	
+	
+	<!-- 동적 SQL쿼리 -->
+	
+	<!-- ResultMap : typeAlias type="com.spring.TomLand.command.GamjaBoardVO" alias="gamjaboard" -->
+
+	<!-- 게시글 등록 -->
+	<insert id="regist">
+		insert into gamjaboard(bno, title, writer, content, gno)
+		values(gamjaboard_seq.nextval, #{title}, #{writer}, #{content}, #{gno})
+	</insert>
+	
+	<!-- 글 목록 가져오기 -->
+	<select id="getList" resultType="gamjaboard">
+		<![CDATA[
+			select * from(
+				select rownum as rn, tbl.* from(
+					select * from gamjaboard
+					order by bno desc)
+				tbl)
+			where rn > (#{pageNum} -1) * #{cpp}
+			and rn <= #{pageNum} * #{cpp}
+			and gno = #{gno}
+		]]>
+	</select>
+	
+	<delete id="delete">
+		delete from gamjaboard
+		where bno = #{bno}
+	</delete>
+
+
+</mapper>

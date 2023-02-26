@@ -68,7 +68,8 @@
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
-      <nav id="navbar" class="navbar">
+      <nav id="navbar" class="navbar navbar-expand-lg">
+     
         <ul>
           <li><a class="nav-link scrollto active" href="<c:url value='/' />" >Home</a></li>
           <li><a class="nav-link scrollto" href="<c:url value='/#features' />">Intro</a></li>
@@ -190,7 +191,7 @@
         </div><!-- end modal -->
       </nav><!-- .navbar -->
     </div>
-    
+
     <!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous">
 	

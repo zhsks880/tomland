@@ -6,9 +6,12 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import com.spring.TomLand.command.EmailVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -67,6 +70,18 @@ public class MailSendService {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	// 4. UtilController 에서 메일 보내기 서비스
+	public void sendSimpleMessage(EmailVO mailVo) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("dash841107.kor@gmail.com");
+		message.setTo("zhsks880@naver.com");
+		message.setSubject(mailVo.getSubject());
+		message.setText(mailVo.getMessage());
+		message.setReplyTo(mailVo.getEmail());
+		log.info("메일보내기 메세지 내용??" + message);
+		mailSender.send(message);
 	}
 	
 }
